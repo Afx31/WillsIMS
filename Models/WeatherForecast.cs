@@ -1,4 +1,4 @@
-namespace WillsIMS
+namespace WillsIMS.Models
 {
     public class WeatherForecast
     {
