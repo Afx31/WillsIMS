@@ -18,13 +18,13 @@ namespace WillsIMS.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<Product> Get()
+        public IActionResult Get()
         {
             try
             {
                 string query = @"
                             SELECT *
-                            FROM dbo.Product
+                            FROM Product
                             ";
 
                 DataTable dt = new DataTable();
@@ -44,20 +44,28 @@ namespace WillsIMS.Controllers
                     }
                 }
 
-                return Enumerable.Range(1, 5).Select(index => new Product
+                // Convert DataTable to a list of Product objects
+                List<Product> products = new List<Product>();
+                foreach (DataRow row in dt.Rows)
                 {
-                    ProductId = 1,
-                    ProductName = "testName",
-                    Description = "testDesc",
-                    Category = 2,
-                    SupplierId = 3
-                })
-                .ToArray();
+                    Product product = new Product
+                    {
+                        ProductId = Convert.ToInt32(row["ProductId"]),
+                        ProductName = row["ProductName"].ToString(),
+                        Description = row["Description"].ToString(),
+                        Category = Convert.ToInt32(row["Category"]),
+                        SupplierId = Convert.ToInt32(row["SupplierId"])
+                    };
+                    products.Add(product);
+                }
+
+                // Return the JSON representation of the products
+                return Ok(products);
 
             }
             catch (Exception ex)
             {
-                return null;
+                return BadRequest("An error occurred: [ " + ex + " ]");
             }
 }
 

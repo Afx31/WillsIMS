@@ -1,35 +1,38 @@
 import React, { Component } from 'react';
+import './FetchData.css';
 
 export class FetchData extends Component {
   static displayName = FetchData.name;
 
   constructor(props) {
     super(props);
-    this.state = { forecasts: [], loading: true };
+    this.state = { products: [], loading: true };
   }
 
   componentDidMount() {
-    this.populateWeatherData();
+    this.populateProductData();
   }
 
-  static renderForecastsTable(forecasts) {
+  static renderProductsTable(products) {
     return (
       <table>
         <thead>
           <tr>
-            <th>Date</th>
-            <th>Temp. (C)</th>
-            <th>Temp. (F)</th>
-            <th>Summary</th>
+            <th>Product ID</th>
+            <th>Product Number</th>
+            <th>Description</th>
+            <th>Category</th>
+            <th>Supplier</th>
           </tr>
         </thead>
         <tbody>
-          {forecasts.map(forecast =>
-            <tr key={forecast.date}>
-              <td>{forecast.date}</td>
-              <td>{forecast.temperatureC}</td>
-              <td>{forecast.temperatureF}</td>
-              <td>{forecast.summary}</td>
+          {products.map(product =>
+            <tr key={product.productId}>
+              <td>{product.productId}</td>
+              <td>{product.productName}</td>
+              <td>{product.description}</td>
+              <td>{product.category}</td>
+              <td>{product.supplierId}</td>
             </tr>
           )}
         </tbody>
@@ -40,21 +43,21 @@ export class FetchData extends Component {
   render() {
     let contents = this.state.loading
       ? <p><em>Loading...</em></p>
-      : FetchData.renderForecastsTable(this.state.forecasts);
+      : FetchData.renderProductsTable(this.state.products);
 
     return (
-      <div>
-        <h1 id="tableLabel">Fetched data - Weather forecast</h1>
+      <div className='fetchDataContainer'>
+        <h1 id="tableLabel">Fetched data - Products</h1>
         <p>This component demonstrates fetching data from the server.</p>
         {contents}
       </div>
     );
   }
 
-  async populateWeatherData() {
-    const response = await fetch('product');
-    const data = await response.json();
+  async populateProductData() {
+    const res = await fetch('product');
+    const data = await res.json();
     console.log(data)
-    //this.setState({ forecasts: data, loading: false });
+    this.setState({ products: data, loading: false });
   }
 }
