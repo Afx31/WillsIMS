@@ -2,6 +2,9 @@
   padding: 10px;
 }
 
+table {
+  padding-bottom: 20px;
+}
 th {
   padding-right: 20px;
 }
