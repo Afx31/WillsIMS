@@ -2,7 +2,6 @@
 using System.Data;
 using System.Data.SqlClient;
 using WillsIMS.Models;
-using System.Net.Http.Headers;
 
 namespace WillsIMS.Controllers
 {
@@ -44,7 +43,6 @@ namespace WillsIMS.Controllers
                     }
                 }
 
-                // Convert DataTable to a list of Product objects
                 List<Product> products = new List<Product>();
                 foreach (DataRow row in dt.Rows)
                 {
@@ -59,9 +57,7 @@ namespace WillsIMS.Controllers
                     products.Add(product);
                 }
 
-                // Return the JSON representation of the products
                 return Ok(products);
-
             }
             catch (Exception ex)
             {
