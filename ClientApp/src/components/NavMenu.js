@@ -25,6 +25,8 @@ export class NavMenu extends Component {
       <div className='topnav'>
         <Link class='active' to="/">Home</Link>
         <Link to="/fetch-data">Fetch data</Link>
+        <Link to="/fetch-data-customer">Fetch data - Customer</Link>
+        <Link to="/fetch-data-orders">Fetch data - Orders</Link>
       </div>
     );
   }
