@@ -72,19 +72,19 @@ export class FetchData extends Component {
   }
 
   render() {
-    let contents = this.state.loading
+    let contentProducts = this.state.loading
       ? <p><em>Loading...</em></p>
       : FetchData.renderProductsTable(this.state.products);
-    let contents2 = this.state.loading
+    let contentInventoryItems = this.state.loading
       ? <p><em>Loading...</em></p>
       : FetchData.renderInventoryItemsTable(this.state.inventoryItems);
 
     return (
       <div className='fetchDataContainer'>
-        <h1 id="tableLabel">Fetched data - Products</h1>
+        <h1 id="tableLabel">Fetched data - Products/Inventory Items</h1>
         <p>This component demonstrates fetching data from the server.</p>
-        {contents}
-        {contents2}
+        {contentProducts}
+        {contentInventoryItems}
       </div>
     );
   }
