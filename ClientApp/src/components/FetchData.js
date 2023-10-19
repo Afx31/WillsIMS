@@ -90,12 +90,12 @@ export class FetchData extends Component {
   }
 
   async populateProductData() {
-    const res = await fetch('product');
+    const res = await fetch('/api/product');
     const data = await res.json();
     this.setState({ products: data, loading: false });
   }
   async populateInventoryItemsData() {
-    const res = await fetch('inventoryItem');
+    const res = await fetch('/api/inventoryItem');
     const data = await res.json();
     this.setState({ inventoryItems: data, loading: false });
   }

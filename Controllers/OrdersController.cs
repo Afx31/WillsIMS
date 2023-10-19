@@ -6,7 +6,6 @@ using WillsIMS.Models;
 namespace WillsIMS.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
     public class OrdersController : ControllerBase
     {
         private readonly IConfiguration _configuration;
@@ -16,7 +15,7 @@ namespace WillsIMS.Controllers
             _configuration = configuration;
         }
 
-        [HttpGet]
+        [HttpGet(ApiEndpoints.Orders.GetAll)]
         public IActionResult Get()
         {
             try
