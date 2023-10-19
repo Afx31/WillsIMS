@@ -58,10 +58,7 @@ export class FetchDataCustomer extends Component {
   }
 
   async populateCustomersData() {
-    console.log('test1')
-    const res = await fetch('customer');
-    console.log('test2')
-    console.log(res)
+    const res = await fetch('/api/customer');
     const data = await res.json();
     this.setState({ customers: data, loading: false });
   }

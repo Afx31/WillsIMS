@@ -84,15 +84,12 @@ export class FetchDataOrders extends Component {
   }
 
   async populateOrdersData() {
-    const res = await fetch('orders');
+    const res = await fetch('/api/orders');
     const data = await res.json();
     this.setState({ orders: data, loading: false });
   }
   async populateOrderItemsData() {
-    const res = await fetch('orderItem');
-    console.log('test1')
-    console.log(res)
-    
+    const res = await fetch('/api/orderItem');
     const data = await res.json();
     this.setState({ orderItems: data, loading: false });
   }
