@@ -1,7 +1,7 @@
 import { Home } from "./components/Home";
 import { FetchData } from "./components/FetchData";
-import { FetchDataCustomer } from "./components/FetchDataCustomer";
-import { FetchDataOrders } from "./components/FetchDataOrders";
+import { FetchDataCompany } from "./components/FetchDataCompany";
+import { FetchDataOutboundOrders } from "./components/FetchDataOutboundOrders";
 
 const AppRoutes = [
   {
@@ -13,12 +13,12 @@ const AppRoutes = [
     element: <FetchData />
   },
   {
-    path: '/fetch-data-customer',
-    element: <FetchDataCustomer />
+    path: '/fetch-data-company',
+    element: <FetchDataCompany />
   },
   {
-    path: '/fetch-data-orders',
-    element: <FetchDataOrders />
+    path: '/fetch-data-outboundOrders',
+    element: <FetchDataOutboundOrders />
   }
 ];
 

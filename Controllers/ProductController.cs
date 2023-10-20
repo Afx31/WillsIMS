@@ -48,7 +48,7 @@ namespace WillsIMS.Controllers
                     Product product = new Product
                     {
                         ProductId = Convert.ToInt32(row["ProductId"]),
-                        ProductName = row["ProductName"].ToString(),
+                        Name = row["Name"].ToString(),
                         Description = row["Description"].ToString(),
                         Category = Convert.ToInt32(row["Category"]),
                         SupplierId = Convert.ToInt32(row["SupplierId"])

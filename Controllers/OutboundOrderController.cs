@@ -6,23 +6,23 @@ using WillsIMS.Models;
 namespace WillsIMS.Controllers
 {
     [ApiController]
-    public class OrderItemController : ControllerBase
+    public class OutboundOrderController : ControllerBase
     {
         private readonly IConfiguration _configuration;
 
-        public OrderItemController(IConfiguration configuration)
+        public OutboundOrderController(IConfiguration configuration)
         {
             _configuration = configuration;
         }
 
-        [HttpGet(ApiEndpoints.OrderItem.GetAll)]
+        [HttpGet(ApiEndpoints.OutboundOrder.GetAll)]
         public IActionResult Get()
         {
             try
             {
                 string query = @"
                             SELECT *
-                            FROM OrderItem
+                            FROM OutboundOrder
                             ";
 
                 DataTable dt = new DataTable();
@@ -42,22 +42,20 @@ namespace WillsIMS.Controllers
                     }
                 }
 
-                List<OrderItem> orderItems = new List<OrderItem>();
+                List<OutboundOrder> orders = new List<OutboundOrder>();
 
                 foreach (DataRow row in dt.Rows)
                 {
-                    OrderItem orderItem = new OrderItem
+                    OutboundOrder order = new OutboundOrder
                     {
-                        OrderItemId = Convert.ToInt32(row["OrderItemId"]),
-                        OrdersId = Convert.ToInt32(row["OrdersId"]),
-                        ProductId = Convert.ToInt32(row["ProductId"]),
-                        Quantity = Convert.ToInt32(row["Quantity"]),
-                        UnitPrice = Convert.ToDouble(row["UnitPrice"].ToString())
+                        OutboundOrderId = Convert.ToInt32(row["OutboundOrderId"]),
+                        CustomerId = Convert.ToInt32(row["CustomerId"]),
+                        OrderDate = (DateTime)row["OrderDate"]
                     };
-                    orderItems.Add(orderItem);
+                    orders.Add(order);
                 }
 
-                return Ok(orderItems);
+                return Ok(orders);
             }
             catch (Exception ex)
             {

@@ -53,7 +53,7 @@ namespace WillsIMS.Controllers
                         CurrentStockQuantity = Convert.ToInt32(row["CurrentStockQuantity"]),
                         MinStockThreshold = Convert.ToInt32(row["MinStockThreshold"]),
                         ReorderPoint = Convert.ToInt32(row["ReorderPoint"]),
-                        WarehouseLocation = row["WarehouseLocation"].ToString()
+                        BinLocation = row["BinLocation"].ToString()
                     };
                     inventoryItems.Add(inventoryItem);
                 }

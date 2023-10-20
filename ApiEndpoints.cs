@@ -4,9 +4,9 @@
     {
         private const string ApiBase = "/api";
 
-        public static class Customer
+        public static class Company
         {
-            private const string Base = $"{ApiBase}/customer";
+            private const string Base = $"{ApiBase}/company";
 
             public const string GetAll = $"{Base}";
         }
@@ -18,16 +18,16 @@
             public const string GetAll = $"{Base}";
         }
 
-        public static class OrderItem
+        public static class OutboundOrder
         {
-            private const string Base = $"{ApiBase}/orderItem";
+            private const string Base = $"{ApiBase}/outboundOrder";
 
             public const string GetAll = $"{Base}";
         }
 
-        public static class Orders
+        public static class OutboundOrderItem
         {
-            private const string Base = $"{ApiBase}/orders";
+            private const string Base = $"{ApiBase}/outboundOrderItem";
 
             public const string GetAll = $"{Base}";
         }
