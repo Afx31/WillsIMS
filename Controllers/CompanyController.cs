@@ -6,23 +6,23 @@ using WillsIMS.Models;
 namespace WillsIMS.Controllers
 {
     [ApiController]
-    public class CustomerController : ControllerBase
+    public class CompanyController : ControllerBase
     {
         private readonly IConfiguration _configuration;
 
-        public CustomerController(IConfiguration configuration)
+        public CompanyController(IConfiguration configuration)
         {
             _configuration = configuration;
         }
 
-        [HttpGet(ApiEndpoints.Customer.GetAll)]
+        [HttpGet(ApiEndpoints.Company.GetAll)]
         public IActionResult Get()
         {
             try
             {
                 string query = @"
                             SELECT *
-                            FROM Customer
+                            FROM Company
                             ";
 
                 DataTable dt = new DataTable();
@@ -42,23 +42,22 @@ namespace WillsIMS.Controllers
                     }
                 }
 
-                List<Customer> customers = new List<Customer>();
+                List<Company> companies = new List<Company>();
 
                 foreach (DataRow row in dt.Rows)
                 {
-                    Customer customer = new Customer
+                    Company company = new Company
                     {
-                        CustomerId = Convert.ToInt32(row["CustomerId"]),
-                        FirstName = row["FirstName"].ToString(),
-                        LastName = row["LastName"].ToString(),
+                        CompanyId = Convert.ToInt32(row["CompanyId"]),
+                        Name = row["Name"].ToString(),
                         Email = row["Email"].ToString(),
                         Phone = row["Phone"].ToString(),
                         Address = row["Address"].ToString()
                     };
-                    customers.Add(customer);
+                    companies.Add(company);
                 }
 
-                return Ok(customers);
+                return Ok(companies);
             }
             catch (Exception ex)
             {

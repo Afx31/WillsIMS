@@ -2,12 +2,12 @@
 
 namespace WillsIMS.Models
 {
-    public class Customer
+    public class Company
     {
         [Key]
-        public int CustomerId { get; set; }
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
+        public int CompanyId { get; set; }
+        public int CompanyType { get; set; }
+        public string Name { get; set; }
         public string Email { get; set; }
         public string Phone { get; set; }
         public string Address { get; set; }

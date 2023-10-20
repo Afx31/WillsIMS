@@ -2,10 +2,10 @@
 
 namespace WillsIMS.Models
 {
-    public class Orders
+    public class OutboundOrder
     {
         [Key]
-        public int OrdersId { get; set; }
+        public int OutboundOrderId { get; set; }
         public int CustomerId { get; set; }
         public DateTime OrderDate { get; set; }
     }
