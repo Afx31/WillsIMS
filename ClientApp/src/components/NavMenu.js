@@ -24,8 +24,9 @@ export class NavMenu extends Component {
     return (
       <div className='topnav'>
         <Link class='active' to='/'>Home</Link>
-        <Link to='/fetch-data'>Fetch data</Link>
         <Link to='/fetch-data-company'>Fetch data - Company</Link>
+        <Link to='/fetch-data'>Fetch data</Link>
+        <Link to='/fetch-data-binlocation'>Fetch data- Bin Location</Link>
         <Link to='/fetch-data-inboundOrders'>Fetch data - Inbound Orders</Link>
         <Link to='/fetch-data-outboundOrders'>Fetch data - Outbound Orders</Link>
       </div>

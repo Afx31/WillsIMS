@@ -52,7 +52,7 @@ export class FetchData extends Component {
             <th>Current Stock Quantity</th>
             <th>Min Stock Threshold</th>
             <th>Reorder Point</th>
-            <th>Warehouse Location</th>
+            <th>Bin Location(s)</th>
           </tr>
         </thead>
         <tbody>
@@ -63,7 +63,7 @@ export class FetchData extends Component {
               <td>{item.currentStockQuantity}</td>
               <td>{item.minStockThreshold}</td>
               <td>{item.reorderPoint}</td>
-              <td>{item.warehouseLocation}</td>
+              <td>N/A</td>
             </tr>
           )}
         </tbody>

@@ -18,6 +18,13 @@
             public const string GetAll = $"{Base}";
         }
 
+        public static class BinLocation
+        {
+            private const string Base = $"{ApiBase}/binLocation";
+
+            public const string GetAll = $"{Base}";
+        }
+
         public static class InventoryItem
         {
             private const string Base = $"{ApiBase}/inventoryItem";
