@@ -48,7 +48,7 @@ export class FetchDataCompany extends Component {
     
     return (
       <div className='fetchDataContainer'>
-        <h1 id="tableLabel">Fetched data - Company</h1>
+        <h1 id='tableLabel'>Fetched data - Company</h1>
         <p>This component demonstrates fetching data from the server.</p>
         {contentCustomers}
       </div>

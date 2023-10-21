@@ -75,7 +75,7 @@ export class FetchDataOutboundOrders extends Component {
 
     return (
       <div className='fetchDataContainer'>
-        <h1 id="tableLabel">Fetched data - Outbound Orders</h1>
+        <h1 id='tableLabel'>Fetched data - Outbound Orders</h1>
         <p>This component demonstrates fetching data from the server.</p>
         {contentsOutboundOrders}
         {contentsOutboundOrderItems}

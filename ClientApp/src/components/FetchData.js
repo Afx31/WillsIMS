@@ -81,7 +81,7 @@ export class FetchData extends Component {
 
     return (
       <div className='fetchDataContainer'>
-        <h1 id="tableLabel">Fetched data - Products/Inventory Items</h1>
+        <h1 id='tableLabel'>Fetched data - Products/Inventory Items</h1>
         <p>This component demonstrates fetching data from the server.</p>
         {contentProducts}
         {contentInventoryItems}

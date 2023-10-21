@@ -11,9 +11,30 @@
             public const string GetAll = $"{Base}";
         }
 
+        public static class Product
+        {
+            private const string Base = $"{ApiBase}/product";
+
+            public const string GetAll = $"{Base}";
+        }
+
         public static class InventoryItem
         {
             private const string Base = $"{ApiBase}/inventoryItem";
+
+            public const string GetAll = $"{Base}";
+        }
+
+        public static class InboundOrder
+        {
+            private const string Base = $"{ApiBase}/inboundOrder";
+
+            public const string GetAll = $"{Base}";
+        }
+
+        public static class InboundOrderItem
+        {
+            private const string Base = $"{ApiBase}/inboundOrderItem";
 
             public const string GetAll = $"{Base}";
         }
@@ -32,11 +53,6 @@
             public const string GetAll = $"{Base}";
         }
 
-        public static class Product
-        {
-            private const string Base = $"{ApiBase}/product";
-
-            public const string GetAll = $"{Base}";
-        }
+        
     }
 }
