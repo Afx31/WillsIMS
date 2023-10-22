@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System.Data.SqlClient;
-using System.Data;
 using WillsIMS.Models;
+using WillsIMS.Repositories;
 
 namespace WillsIMS.Controllers
 {
@@ -9,10 +8,12 @@ namespace WillsIMS.Controllers
     public class CompanyController : ControllerBase
     {
         private readonly IConfiguration _configuration;
+        private readonly CompanyRepository _companyRepository;
 
         public CompanyController(IConfiguration configuration)
         {
             _configuration = configuration;
+            _companyRepository = new CompanyRepository(_configuration.GetConnectionString("DatabaseConnection"));
         }
 
         [HttpGet(ApiEndpoints.Company.GetAll)]
@@ -20,43 +21,7 @@ namespace WillsIMS.Controllers
         {
             try
             {
-                string query = @"
-                            SELECT *
-                            FROM Company
-                            ";
-
-                DataTable dt = new DataTable();
-                string sqlDataSource = _configuration.GetConnectionString("DatabaseConnection");
-                SqlDataReader myReader;
-
-                using (SqlConnection myConnection = new SqlConnection(sqlDataSource))
-                {
-                    myConnection.Open();
-
-                    using (SqlCommand myCommand = new SqlCommand(query, myConnection))
-                    {
-                        myReader = myCommand.ExecuteReader();
-                        dt.Load(myReader);
-                        myReader.Close();
-                        myConnection.Close();
-                    }
-                }
-
-                List<Company> companies = new List<Company>();
-
-                foreach (DataRow row in dt.Rows)
-                {
-                    Company company = new Company
-                    {
-                        CompanyId = Convert.ToInt32(row["CompanyId"]),
-                        Name = row["Name"].ToString(),
-                        Email = row["Email"].ToString(),
-                        Phone = row["Phone"].ToString(),
-                        Address = row["Address"].ToString()
-                    };
-                    companies.Add(company);
-                }
-
+                List<Company> companies = _companyRepository.GetAllCompanies();
                 return Ok(companies);
             }
             catch (Exception ex)
