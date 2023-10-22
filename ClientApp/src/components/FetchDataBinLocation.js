@@ -11,6 +11,7 @@ export class FetchDataBinLocation extends Component {
 
   componentDidMount() {
     this.populateBinLocationData();
+    this.populateInventoryItemBinLocationData();
   }
 
   static renderBinLocationTable(binLocation) {
@@ -52,6 +53,11 @@ export class FetchDataBinLocation extends Component {
 
   async populateBinLocationData() {
     const res = await fetch('/api/binLocation');
+    const data = await res.json();
+    this.setState({ binLocation: data, loading: false });
+  }
+  async populateInventoryItemBinLocationData() {
+    const res = await fetch('/api/inventoryItemBinLocation');
     const data = await res.json();
     this.setState({ binLocation: data, loading: false });
   }

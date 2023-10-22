@@ -32,6 +32,13 @@
             public const string GetAll = $"{Base}";
         }
 
+        public static class InventoryItemBinLocation
+        {
+            private const string Base = $"{ApiBase}/inventoryItemBinLocation";
+
+            public const string GetAll = $"{Base}";
+        }
+
         public static class InboundOrder
         {
             private const string Base = $"{ApiBase}/inboundOrder";
