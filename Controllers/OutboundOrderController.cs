@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System.Data.SqlClient;
-using System.Data;
 using WillsIMS.Models;
+using WillsIMS.Repositories;
 
 namespace WillsIMS.Controllers
 {
@@ -9,10 +8,12 @@ namespace WillsIMS.Controllers
     public class OutboundOrderController : ControllerBase
     {
         private readonly IConfiguration _configuration;
+        private readonly OutboundOrderRepository _outboundOrderRepository;
 
         public OutboundOrderController(IConfiguration configuration)
         {
             _configuration = configuration;
+            _outboundOrderRepository = new OutboundOrderRepository(_configuration.GetConnectionString("DatabaseConnection"));
         }
 
         [HttpGet(ApiEndpoints.OutboundOrder.GetAll)]
@@ -20,42 +21,8 @@ namespace WillsIMS.Controllers
         {
             try
             {
-                string query = @"
-                            SELECT *
-                            FROM OutboundOrder
-                            ";
-
-                DataTable dt = new DataTable();
-                string sqlDataSource = _configuration.GetConnectionString("DatabaseConnection");
-                SqlDataReader myReader;
-
-                using (SqlConnection myConnection = new SqlConnection(sqlDataSource))
-                {
-                    myConnection.Open();
-
-                    using (SqlCommand myCommand = new SqlCommand(query, myConnection))
-                    {
-                        myReader = myCommand.ExecuteReader();
-                        dt.Load(myReader);
-                        myReader.Close();
-                        myConnection.Close();
-                    }
-                }
-
-                List<OutboundOrder> orders = new List<OutboundOrder>();
-
-                foreach (DataRow row in dt.Rows)
-                {
-                    OutboundOrder order = new OutboundOrder
-                    {
-                        OutboundOrderId = Convert.ToInt32(row["OutboundOrderId"]),
-                        CustomerId = Convert.ToInt32(row["CustomerId"]),
-                        OrderDate = (DateTime)row["OrderDate"]
-                    };
-                    orders.Add(order);
-                }
-
-                return Ok(orders);
+                List<OutboundOrder> outboundOrders = _outboundOrderRepository.GetAllOutboundOrders();
+                return Ok(outboundOrders);
             }
             catch (Exception ex)
             {

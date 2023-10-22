@@ -1,17 +1,18 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System.Data.SqlClient;
-using System.Data;
 using WillsIMS.Models;
+using WillsIMS.Repositories;
 
 namespace WillsIMS.Controllers
 {
     public class InboundOrderController : ControllerBase
     {
         private readonly IConfiguration _configuration;
+        private readonly InboundOrderRepository _inboundOrderRepository;
 
         public InboundOrderController(IConfiguration configuration)
         {
             _configuration = configuration;
+            _inboundOrderRepository = new InboundOrderRepository(_configuration.GetConnectionString("DatabaseConnection"));
         }
 
         [HttpGet(ApiEndpoints.InboundOrder.GetAll)]
@@ -19,41 +20,7 @@ namespace WillsIMS.Controllers
         {
             try
             {
-                string query = @"
-                            SELECT *
-                            FROM InboundOrder
-                            ";
-
-                DataTable dt = new DataTable();
-                string sqlDataSource = _configuration.GetConnectionString("DatabaseConnection");
-                SqlDataReader myReader;
-
-                using (SqlConnection myConnection = new SqlConnection(sqlDataSource))
-                {
-                    myConnection.Open();
-
-                    using (SqlCommand myCommand = new SqlCommand(query, myConnection))
-                    {
-                        myReader = myCommand.ExecuteReader();
-                        dt.Load(myReader);
-                        myReader.Close();
-                        myConnection.Close();
-                    }
-                }
-
-                List<InboundOrder> inboundOrders = new List<InboundOrder>();
-
-                foreach (DataRow row in dt.Rows)
-                {
-                    InboundOrder order = new InboundOrder
-                    {
-                        InboundOrderId = Convert.ToInt32(row["InboundOrderId"]),
-                        CompanyId = Convert.ToInt32(row["CompanyId"]),
-                        PurchaseDate = (DateTime)row["PurchaseDate"]
-                    };
-                    inboundOrders.Add(order);
-                }
-
+                List<InboundOrder> inboundOrders = _inboundOrderRepository.GetAllInboundOrders();
                 return Ok(inboundOrders);
             }
             catch (Exception ex)
