@@ -63,7 +63,7 @@ export class FetchData extends Component {
               <td>{item.currentStockQuantity}</td>
               <td>{item.minStockThreshold}</td>
               <td>{item.reorderPoint}</td>
-              <td>N/A</td>
+              <td>{item.binLocations}</td>
             </tr>
           )}
         </tbody>
@@ -95,7 +95,8 @@ export class FetchData extends Component {
     this.setState({ products: data, loading: false });
   }
   async populateInventoryItemsData() {
-    const res = await fetch('/api/inventoryItem');
+    //const res = await fetch('/api/inventoryItem');
+    const res = await fetch('/api/inventoryItemWithBinLocations');
     const data = await res.json();
     this.setState({ inventoryItems: data, loading: false });
   }

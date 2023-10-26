@@ -7,5 +7,6 @@ namespace WillsIMS.Models
         [Key]
         public int BinLocationId { get; set; }
         public string Location { get; set; }
+        public int InventoryItemId { get; set; }
     }
 }

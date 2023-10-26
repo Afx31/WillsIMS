@@ -29,5 +29,19 @@ namespace WillsIMS.Controllers
                 return BadRequest("An error occurred: [ " + ex + " ]");
             }
         }
+
+        [HttpGet(ApiEndpoints.InventoryItem.GetAllWithBinLocations)]
+        public IActionResult GetAllWithBinLocations()
+        {
+            try
+            {
+                List<InventoryItem> inventoryItems = _inventoryItemRepository.GetAllInventoryItemsWithBinLocations();
+                return Ok(inventoryItems);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest("An error occurred: [ " + ex + " ]");
+            }
+        }
     }
 }

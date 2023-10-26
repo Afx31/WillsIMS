@@ -56,9 +56,4 @@ export class FetchDataBinLocation extends Component {
     const data = await res.json();
     this.setState({ binLocation: data, loading: false });
   }
-  async populateInventoryItemBinLocationData() {
-    const res = await fetch('/api/inventoryItemBinLocation');
-    const data = await res.json();
-    this.setState({ binLocation: data, loading: false });
-  }
 }
