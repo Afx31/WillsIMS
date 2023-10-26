@@ -1,9 +1,10 @@
-import { Home } from "./components/Home";
-import { FetchDataCompany } from "./components/FetchDataCompany";
-import { FetchData } from "./components/FetchData";
-import { FetchDataBinLocation } from "./components/FetchDataBinLocation";
-import { FetchDataInboundOrders } from "./components/FetchDataInboundOrders";
-import { FetchDataOutboundOrders } from "./components/FetchDataOutboundOrders";
+import { Home } from "./components/Pages/Home";
+import { Company } from "./components/Pages/Company";
+import { Products } from "./components/Pages/Products";
+import { InventoryItems } from "./components/Pages/InventoryItems";
+import { BinLocations } from "./components/Pages/BinLocations";
+import { InboundOrders } from "./components/Pages/InboundOrders";
+import { OutboundOrders } from "./components/Pages/OutboundOrders";
 
 const AppRoutes = [
   {
@@ -11,24 +12,28 @@ const AppRoutes = [
     element: <Home />
   },
   {
-    path: '/fetch-data-company',
-    element: <FetchDataCompany />
+    path: '/company',
+    element: <Company />
   },
   {
-    path: '/fetch-data',
-    element: <FetchData />
+    path: '/products',
+    element: <Products />
   },
   {
-    path: '/fetch-data-binLocation',
-    element: <FetchDataBinLocation />
+    path: '/inventoryItems',
+    element: <InventoryItems />
   },
   {
-    path: '/fetch-data-inboundOrders',
-    element: <FetchDataInboundOrders />
+    path: '/binLocations',
+    element: <BinLocations />
   },
   {
-    path: '/fetch-data-outboundOrders',
-    element: <FetchDataOutboundOrders />
+    path: '/inboundOrders',
+    element: <InboundOrders />
+  },
+  {
+    path: '/outboundOrders',
+    element: <OutboundOrders />
   }
 ];
 
