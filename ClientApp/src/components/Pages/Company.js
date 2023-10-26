@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import './FetchData.css';
+import './Data.css';
 
-export class FetchDataCompany extends Component {
-  static displayName = FetchDataCompany.name;
+export class Company extends Component {
+  static displayName = Company.name;
 
   constructor(props) {
     super(props);
@@ -44,12 +44,11 @@ export class FetchDataCompany extends Component {
     
     let contentCustomers = this.state.loading
       ? <p><em>Loading...</em></p>
-      : FetchDataCompany.renderCompaniesTable(this.state.companies);
+      : Company.renderCompaniesTable(this.state.companies);
     
     return (
-      <div className='fetchDataContainer'>
-        <h1 id='tableLabel'>Fetched data - Company</h1>
-        <p>This component demonstrates fetching data from the server.</p>
+      <div className='dataContainer'>
+        <h1 id='tableLabel'>Company</h1>
         {contentCustomers}
       </div>
     );

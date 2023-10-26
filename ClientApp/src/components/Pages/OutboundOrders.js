@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import './FetchData.css';
+import './Data.css';
 
-export class FetchDataOutboundOrders extends Component {
-  static displayName = FetchDataOutboundOrders.name;
+export class OutboundOrders extends Component {
+  static displayName = OutboundOrders.name;
 
   constructor(props) {
     super(props);
@@ -68,15 +68,14 @@ export class FetchDataOutboundOrders extends Component {
   render() {
     let contentsOutboundOrders = this.state.loading
       ? <p><em>Loading...</em></p>
-      : FetchDataOutboundOrders.renderOutboundOrdersTable(this.state.outboundOrders);
+      : OutboundOrders.renderOutboundOrdersTable(this.state.outboundOrders);
     let contentsOutboundOrderItems = this.state.loading
       ? <p><em>Loading...</em></p>
-      : FetchDataOutboundOrders.renderOutboundOrderItemsTable(this.state.outboundOrderItems);
+      : OutboundOrders.renderOutboundOrderItemsTable(this.state.outboundOrderItems);
 
     return (
-      <div className='fetchDataContainer'>
-        <h1 id='tableLabel'>Fetched data - Outbound Orders</h1>
-        <p>This component demonstrates fetching data from the server.</p>
+      <div className='dataContainer'>
+        <h1 id='tableLabel'>Outbound Orders</h1>
         {contentsOutboundOrders}
         {contentsOutboundOrderItems}
       </div>

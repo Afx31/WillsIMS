@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import './FetchData.css';
+import './Data.css';
 
-export class FetchDataBinLocation extends Component {
-  static displayName = FetchDataBinLocation.name;
+export class BinLocations extends Component {
+  static displayName = BinLocations.name;
 
   constructor(props) {
     super(props);
@@ -11,7 +11,6 @@ export class FetchDataBinLocation extends Component {
 
   componentDidMount() {
     this.populateBinLocationData();
-    this.populateInventoryItemBinLocationData();
   }
 
   static renderBinLocationTable(binLocation) {
@@ -40,12 +39,11 @@ export class FetchDataBinLocation extends Component {
   render() {
     let contentBinLocation = this.state.loading
       ? <p><em>Loading...</em></p>
-      : FetchDataBinLocation.renderBinLocationTable(this.state.binLocation);
+      : BinLocations.renderBinLocationTable(this.state.binLocation);
 
     return (
-      <div className='fetchDataContainer'>
-        <h1 id='tableLabel'>Fetched data - Bin Location</h1>
-        <p>This component demonstrates fetching data from the server.</p>
+      <div className='dataContainer'>
+        <h1 id='tableLabel'>Bin Locations</h1>
         {contentBinLocation}
       </div>
     );

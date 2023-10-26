@@ -1,45 +1,16 @@
 import React, { Component } from 'react';
-import './FetchData.css';
+import './Data.css';
 
-export class FetchData extends Component {
-  static displayName = FetchData.name;
+export class InventoryItems extends Component {
+  static displayName = InventoryItems.name;
 
   constructor(props) {
     super(props);
-    this.state = { products: [], loading: true };
     this.state = { inventoryItems: [], loading: true };
   }
 
   componentDidMount() {
-    this.populateProductData();
     this.populateInventoryItemsData();
-  }
-
-  static renderProductsTable(products) {
-    return (
-      <table>
-        <thead>
-          <tr>
-            <th>Product ID</th>
-            <th>Product Name</th>
-            <th>Description</th>
-            <th>Category</th>
-            <th>Supplier</th>
-          </tr>
-        </thead>
-        <tbody>
-          {products.map(product =>
-            <tr key={product.productId}>
-              <td>{product.productId}</td>
-              <td>{product.name}</td>
-              <td>{product.description}</td>
-              <td>{product.category}</td>
-              <td>{product.supplierId}</td>
-            </tr>
-          )}
-        </tbody>
-      </table>
-    );
   }
 
   static renderInventoryItemsTable(inventoryItems) {
@@ -72,28 +43,18 @@ export class FetchData extends Component {
   }
 
   render() {
-    let contentProducts = this.state.loading
-      ? <p><em>Loading...</em></p>
-      : FetchData.renderProductsTable(this.state.products);
     let contentInventoryItems = this.state.loading
       ? <p><em>Loading...</em></p>
-      : FetchData.renderInventoryItemsTable(this.state.inventoryItems);
+      : InventoryItems.renderInventoryItemsTable(this.state.inventoryItems);
 
     return (
-      <div className='fetchDataContainer'>
-        <h1 id='tableLabel'>Fetched data - Products/Inventory Items</h1>
-        <p>This component demonstrates fetching data from the server.</p>
-        {contentProducts}
+      <div className='dataContainer'>
+        <h1 id='tableLabel'>Inventory Items</h1>
         {contentInventoryItems}
       </div>
     );
   }
 
-  async populateProductData() {
-    const res = await fetch('/api/product');
-    const data = await res.json();
-    this.setState({ products: data, loading: false });
-  }
   async populateInventoryItemsData() {
     //const res = await fetch('/api/inventoryItem');
     const res = await fetch('/api/inventoryItemWithBinLocations');
