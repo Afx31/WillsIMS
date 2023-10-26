@@ -24,10 +24,11 @@ export class NavMenu extends Component {
     return (
       <div className='topnav'>
         <Link class='active' to='/'>Home</Link>
-        <Link to='/fetch-data'>Fetch data</Link>
-        <Link to='/fetch-data-company'>Fetch data - Company</Link>
-        <Link to='/fetch-data-inboundOrders'>Fetch data - Inbound Orders</Link>
-        <Link to='/fetch-data-outboundOrders'>Fetch data - Outbound Orders</Link>
+        <Link to='/fetch-data-company'>Company</Link>
+        <Link to='/fetch-data'>Fetch data - Inventory Items</Link>
+        <Link to='/fetch-data-binlocation'>Bin Locations</Link>
+        <Link to='/fetch-data-inboundOrders'>Inbound Orders</Link>
+        <Link to='/fetch-data-outboundOrders'>Outbound Orders</Link>
       </div>
     );
   }

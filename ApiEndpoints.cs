@@ -18,11 +18,19 @@
             public const string GetAll = $"{Base}";
         }
 
+        public static class BinLocation
+        {
+            private const string Base = $"{ApiBase}/binLocation";
+
+            public const string GetAll = $"{Base}";
+        }
+
         public static class InventoryItem
         {
             private const string Base = $"{ApiBase}/inventoryItem";
 
             public const string GetAll = $"{Base}";
+            public const string GetAllWithBinLocations = $"{Base}WithBinLocations";
         }
 
         public static class InboundOrder
