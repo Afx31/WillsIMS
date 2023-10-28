@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using WillsIMS.Models;
 using WillsIMS.Repositories;
 
 namespace WillsIMS.Controllers
@@ -17,11 +16,11 @@ namespace WillsIMS.Controllers
         }
 
         [HttpGet(ApiEndpoints.Company.GetAll)]
-        public IActionResult Get()
+        public async Task<IActionResult> Get()
         {
             try
             {
-                List<Company> companies = _companyRepository.GetAllCompanies();
+                var companies = await _companyRepository.GetAllCompanies();
                 return Ok(companies);
             }
             catch (Exception ex)

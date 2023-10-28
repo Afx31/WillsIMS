@@ -13,7 +13,7 @@ namespace WillsIMS.Repositories
             _connectionString = connectionString;
         }
 
-        public List<InventoryItem> GetAllInventoryItems()
+        public async Task<IEnumerable<InventoryItem>> GetAllInventoryItems()
         {
             try
             {
@@ -26,7 +26,7 @@ namespace WillsIMS.Repositories
                 SqlDataReader reader;
                 using (SqlConnection connection = new SqlConnection(_connectionString))
                 {
-                    connection.Open();
+                    await connection.OpenAsync();
                     using (SqlCommand command = new SqlCommand(query, connection))
                     {
                         reader = command.ExecuteReader();
@@ -59,7 +59,7 @@ namespace WillsIMS.Repositories
             }
         }
 
-        public List<InventoryItem> GetAllInventoryItemsWithBinLocations()
+        public async Task<IEnumerable<InventoryItem>> GetAllInventoryItemsWithBinLocations()
         {
             try
             {
@@ -71,7 +71,7 @@ namespace WillsIMS.Repositories
                 SqlDataReader reader;
                 using (SqlConnection connection = new SqlConnection(_connectionString))
                 {
-                    connection.Open();
+                    await connection.OpenAsync();
                     using (SqlCommand command = new SqlCommand(query, connection))
                     {
                         reader = command.ExecuteReader();

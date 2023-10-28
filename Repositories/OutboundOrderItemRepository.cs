@@ -13,7 +13,7 @@ namespace WillsIMS.Repositories
             _connectionString = connectionString;
         }
 
-        public List<OutboundOrderItem> GetAllOutboundOrderItems()
+        public async Task<IEnumerable<OutboundOrderItem>> GetAllOutboundOrderItems()
         {
             try
             {
@@ -26,7 +26,7 @@ namespace WillsIMS.Repositories
                 SqlDataReader reader;
                 using (SqlConnection connection = new SqlConnection(_connectionString))
                 {
-                    connection.Open();
+                    await connection.OpenAsync();
                     using (SqlCommand command = new SqlCommand(query, connection))
                     {
                         reader = command.ExecuteReader();

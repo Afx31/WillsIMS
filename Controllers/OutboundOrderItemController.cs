@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using WillsIMS.Models;
 using WillsIMS.Repositories;
 
 namespace WillsIMS.Controllers
@@ -17,11 +16,11 @@ namespace WillsIMS.Controllers
         }
 
         [HttpGet(ApiEndpoints.OutboundOrderItem.GetAll)]
-        public IActionResult Get()
+        public async Task<IActionResult> Get()
         {
             try
             {
-                List<OutboundOrderItem> outboundOrderItems = _outboundOrderItemRepository.GetAllOutboundOrderItems();
+                var outboundOrderItems = await _outboundOrderItemRepository.GetAllOutboundOrderItems();
                 return Ok(outboundOrderItems);
             }
             catch (Exception ex)
