@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using WillsIMS.Models;
 using WillsIMS.Repositories;
 
 namespace WillsIMS.Controllers
@@ -17,11 +16,11 @@ namespace WillsIMS.Controllers
         }
 
         [HttpGet(ApiEndpoints.InventoryItem.GetAll)]
-        public IActionResult Get()
+        public async Task<IActionResult> Get()
         {
             try
             {
-                List<InventoryItem> inventoryItems = _inventoryItemRepository.GetAllInventoryItems();
+                var inventoryItems = await _inventoryItemRepository.GetAllInventoryItems();
                 return Ok(inventoryItems);
             }
             catch(Exception ex)
@@ -31,11 +30,11 @@ namespace WillsIMS.Controllers
         }
 
         [HttpGet(ApiEndpoints.InventoryItem.GetAllWithBinLocations)]
-        public IActionResult GetAllWithBinLocations()
+        public async Task<IActionResult> GetAllWithBinLocations()
         {
             try
             {
-                List<InventoryItem> inventoryItems = _inventoryItemRepository.GetAllInventoryItemsWithBinLocations();
+                var inventoryItems = await _inventoryItemRepository.GetAllInventoryItemsWithBinLocations();
                 return Ok(inventoryItems);
             }
             catch (Exception ex)

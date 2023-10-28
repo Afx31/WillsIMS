@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using WillsIMS.Models;
 using WillsIMS.Repositories;
 
 namespace WillsIMS.Controllers
@@ -17,11 +16,11 @@ namespace WillsIMS.Controllers
         }
 
         [HttpGet(ApiEndpoints.Product.GetAll)]
-        public IActionResult Get()
+        public async Task<IActionResult> Get()
         {
             try
             {
-                List<Product> products = _productRepository.GetAllProducts();
+                var products = await _productRepository.GetAllProducts();
                 return Ok(products);
             }
             catch (Exception ex)

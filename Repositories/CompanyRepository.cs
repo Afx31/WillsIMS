@@ -13,7 +13,7 @@ namespace WillsIMS.Repositories
             _connectionString = connectionString;
         }
 
-        public List<Company> GetAllCompanies()
+        public async Task<IEnumerable<Company>> GetAllCompanies()
         {
             try
             {
@@ -26,7 +26,7 @@ namespace WillsIMS.Repositories
                 SqlDataReader reader;
                 using (SqlConnection connection = new SqlConnection(_connectionString))
                 {
-                    connection.Open();
+                    await connection.OpenAsync();
                     using (SqlCommand command = new SqlCommand(query, connection))
                     {
                         reader = command.ExecuteReader();
