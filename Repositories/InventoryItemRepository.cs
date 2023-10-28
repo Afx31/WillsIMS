@@ -1,16 +1,16 @@
 ﻿using System.Data;
-using System.Data.SqlClient;
 using WillsIMS.Models;
+using WillsIMS.Utilities;
 
 namespace WillsIMS.Repositories
 {
     public class InventoryItemRepository
     {
-        private readonly string _connectionString;
+        private readonly IDatabaseUtility _databaseUtility;
 
-        public InventoryItemRepository(string connectionString)
+        public InventoryItemRepository(IDatabaseUtility databaseUtility)
         {
-            _connectionString = connectionString;
+            _databaseUtility = databaseUtility;
         }
 
         public async Task<IEnumerable<InventoryItem>> GetAllInventoryItems()
@@ -22,20 +22,7 @@ namespace WillsIMS.Repositories
                             FROM InventoryItem
                             ";
 
-                DataTable dt = new DataTable();
-                SqlDataReader reader;
-                using (SqlConnection connection = new SqlConnection(_connectionString))
-                {
-                    await connection.OpenAsync();
-                    using (SqlCommand command = new SqlCommand(query, connection))
-                    {
-                        reader = command.ExecuteReader();
-                        dt.Load(reader);
-                        reader.Close();
-                        connection.Close();
-                    }
-                }
-
+                DataTable dt = await _databaseUtility.QueryDatabase(query);
                 List<InventoryItem> inventoryItems = new List<InventoryItem>();
 
                 foreach (DataRow row in dt.Rows)
@@ -63,44 +50,19 @@ namespace WillsIMS.Repositories
         {
             try
             {
-                string query = @"
+                string queryInventoryItem = @"
                             SELECT *
                             FROM InventoryItem
                             ";
-                DataTable dt = new DataTable();
-                SqlDataReader reader;
-                using (SqlConnection connection = new SqlConnection(_connectionString))
-                {
-                    await connection.OpenAsync();
-                    using (SqlCommand command = new SqlCommand(query, connection))
-                    {
-                        reader = command.ExecuteReader();
-                        dt.Load(reader);
-                        reader.Close();
-                        connection.Close();
-                    }
-                }
-                
-                string query2 = @"
+                string queryBinLocation = @"
                             SELECT *
                             FROM BinLocation
                             ";
-                DataTable dt2 = new DataTable();
-                SqlDataReader reader2;
-                using (SqlConnection connection = new SqlConnection(_connectionString))
-                {
-                    connection.Open();
-                    using (SqlCommand command = new SqlCommand(query2, connection))
-                    {
-                        reader2 = command.ExecuteReader();
-                        dt2.Load(reader2);
-                        reader2.Close();
-                        connection.Close();
-                    }
-                }
+                DataTable dtInventoryItem = await _databaseUtility.QueryDatabase(queryInventoryItem);
+                DataTable dtBinLocation = await _databaseUtility.QueryDatabase(queryBinLocation);
 
                 List<BinLocation> binLocations = new List<BinLocation>();
-                foreach (DataRow row in dt2.Rows)
+                foreach (DataRow row in dtBinLocation.Rows)
                 {
                     BinLocation binLocation = new BinLocation
                     {
@@ -112,7 +74,7 @@ namespace WillsIMS.Repositories
                 }
 
                 List<InventoryItem> inventoryItems = new List<InventoryItem>();
-                foreach (DataRow row in dt.Rows)
+                foreach (DataRow row in dtInventoryItem.Rows)
                 {
                     InventoryItem inventoryItem = new InventoryItem
                     {

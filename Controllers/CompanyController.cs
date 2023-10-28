@@ -1,18 +1,17 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using WillsIMS.Repositories;
+using WillsIMS.Utilities;
 
 namespace WillsIMS.Controllers
 {
     [ApiController]
     public class CompanyController : ControllerBase
     {
-        private readonly IConfiguration _configuration;
         private readonly CompanyRepository _companyRepository;
 
-        public CompanyController(IConfiguration configuration)
+        public CompanyController(IDatabaseUtility databaseUtility)
         {
-            _configuration = configuration;
-            _companyRepository = new CompanyRepository(_configuration.GetConnectionString("DatabaseConnection"));
+            _companyRepository = new CompanyRepository(databaseUtility);
         }
 
         [HttpGet(ApiEndpoints.Company.GetAll)]

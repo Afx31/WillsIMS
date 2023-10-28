@@ -1,18 +1,17 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using WillsIMS.Repositories;
+using WillsIMS.Utilities;
 
 namespace WillsIMS.Controllers
 {
     [ApiController]
     public class ProductController : ControllerBase
     {
-        private readonly IConfiguration _configuration;
         private readonly ProductRepository _productRepository;
 
-        public ProductController(IConfiguration configuration)
+        public ProductController(IDatabaseUtility databaseUtility)
         {
-            _configuration = configuration;
-            _productRepository = new ProductRepository(_configuration.GetConnectionString("DatabaseConnection"));
+            _productRepository = new ProductRepository(databaseUtility);
         }
 
         [HttpGet(ApiEndpoints.Product.GetAll)]

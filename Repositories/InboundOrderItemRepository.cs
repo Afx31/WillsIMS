@@ -1,16 +1,17 @@
 ﻿using System.Data.SqlClient;
 using System.Data;
 using WillsIMS.Models;
+using WillsIMS.Utilities;
 
 namespace WillsIMS.Repositories
 {
     public class InboundOrderItemRepository
     {
-        private readonly string _connectionString;
+        private readonly IDatabaseUtility _databaseUtility;
 
-        public InboundOrderItemRepository(string connectionString)
+        public InboundOrderItemRepository(IDatabaseUtility databaseUtility)
         {
-            _connectionString = connectionString;
+            _databaseUtility = databaseUtility;
         }
 
         public async Task<IEnumerable<InboundOrderItem>> GetAllInboundOrderItems()
@@ -22,20 +23,7 @@ namespace WillsIMS.Repositories
                             FROM InboundOrderItem
                             ";
 
-                DataTable dt = new DataTable();
-                SqlDataReader reader;
-                using (SqlConnection connection = new SqlConnection(_connectionString))
-                {
-                    await connection.OpenAsync();
-                    using (SqlCommand command = new SqlCommand(query, connection))
-                    {
-                        reader = command.ExecuteReader();
-                        dt.Load(reader);
-                        reader.Close();
-                        connection.Close();
-                    }
-                }
-
+                DataTable dt = await _databaseUtility.QueryDatabase(query);
                 List<InboundOrderItem> inboundOrderItems = new List<InboundOrderItem>();
 
                 foreach (DataRow row in dt.Rows)

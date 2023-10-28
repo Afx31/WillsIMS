@@ -1,18 +1,17 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using WillsIMS.Repositories;
+using WillsIMS.Utilities;
 
 namespace WillsIMS.Controllers
 {
     [ApiController]
     public class OutboundOrderController : ControllerBase
     {
-        private readonly IConfiguration _configuration;
         private readonly OutboundOrderRepository _outboundOrderRepository;
 
-        public OutboundOrderController(IConfiguration configuration)
+        public OutboundOrderController(IDatabaseUtility databaseUtility)
         {
-            _configuration = configuration;
-            _outboundOrderRepository = new OutboundOrderRepository(_configuration.GetConnectionString("DatabaseConnection"));
+            _outboundOrderRepository = new OutboundOrderRepository(databaseUtility);
         }
 
         [HttpGet(ApiEndpoints.OutboundOrder.GetAll)]

@@ -1,18 +1,17 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using WillsIMS.Repositories;
+using WillsIMS.Utilities;
 
 namespace WillsIMS.Controllers
 {
     [ApiController]
     public class InventoryItemController : ControllerBase
     {
-        private readonly IConfiguration _configuration;
         private readonly InventoryItemRepository _inventoryItemRepository;
 
-        public InventoryItemController(IConfiguration configuration)
+        public InventoryItemController(IDatabaseUtility databaseUtility)
         {
-            _configuration = configuration;
-            _inventoryItemRepository = new InventoryItemRepository(_configuration.GetConnectionString("DatabaseConnection"));
+            _inventoryItemRepository = new InventoryItemRepository(databaseUtility);
         }
 
         [HttpGet(ApiEndpoints.InventoryItem.GetAll)]

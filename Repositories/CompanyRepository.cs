@@ -1,16 +1,16 @@
 ﻿using System.Data;
-using System.Data.SqlClient;
 using WillsIMS.Models;
+using WillsIMS.Utilities;
 
 namespace WillsIMS.Repositories
 {
     public class CompanyRepository
     {
-        private readonly string _connectionString;
+        private readonly IDatabaseUtility _databaseUtility;
 
-        public CompanyRepository(string connectionString)
+        public CompanyRepository(IDatabaseUtility databaseUtility)
         {
-            _connectionString = connectionString;
+            _databaseUtility = databaseUtility;
         }
 
         public async Task<IEnumerable<Company>> GetAllCompanies()
@@ -22,20 +22,7 @@ namespace WillsIMS.Repositories
                             FROM Company
                             ";
 
-                DataTable dt = new DataTable();
-                SqlDataReader reader;
-                using (SqlConnection connection = new SqlConnection(_connectionString))
-                {
-                    await connection.OpenAsync();
-                    using (SqlCommand command = new SqlCommand(query, connection))
-                    {
-                        reader = command.ExecuteReader();
-                        dt.Load(reader);
-                        reader.Close();
-                        connection.Close();
-                    }
-                }
-
+                DataTable dt = await _databaseUtility.QueryDatabase(query);
                 List<Company> companies = new List<Company>();
 
                 foreach (DataRow row in dt.Rows)
@@ -55,7 +42,7 @@ namespace WillsIMS.Repositories
             }
             catch (Exception ex)
             {
-                throw new NotImplementedException("Exception has occurred in the Company data operations.");
+                throw new NotImplementedException("ERROR: Company");
             }
         }
     }
