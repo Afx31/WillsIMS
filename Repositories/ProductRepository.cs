@@ -1,16 +1,16 @@
 ﻿using System.Data;
-using System.Data.SqlClient;
 using WillsIMS.Models;
+using WillsIMS.Utilities;
 
 namespace WillsIMS.Repositories
 {
     public class ProductRepository
     {
-        private readonly string _connectionString;
+        private readonly IDatabaseUtility _databaseUtility;
 
-        public ProductRepository(string connectionString)
+        public ProductRepository(IDatabaseUtility databaseUtility)
         {
-            _connectionString = connectionString;
+            _databaseUtility = databaseUtility;
         }
 
         public async Task<IEnumerable<Product>> GetAllProducts()
@@ -22,21 +22,9 @@ namespace WillsIMS.Repositories
                             FROM Product
                             ";
 
-                DataTable dt = new DataTable();
-                SqlDataReader reader;
-                using (SqlConnection connection = new SqlConnection(_connectionString))
-                {
-                    await connection.OpenAsync();
-                    using (SqlCommand command = new SqlCommand(query, connection))
-                    {
-                        reader = command.ExecuteReader();
-                        dt.Load(reader);
-                        reader.Close();
-                        connection.Close();
-                    }
-                }
-            
+                DataTable dt = await _databaseUtility.QueryDatabase(query);            
                 List<Product> products = new List<Product>();
+
                 foreach (DataRow row in dt.Rows)
                 {
                     Product product = new Product

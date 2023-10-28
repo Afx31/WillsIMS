@@ -1,17 +1,17 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using WillsIMS.Repositories;
+using WillsIMS.Utilities;
 
 namespace WillsIMS.Controllers
 {
+    [ApiController]
     public class InboundOrderItemController : ControllerBase
     {
-        private readonly IConfiguration _configuration;
         private readonly InboundOrderItemRepository _inboundOrderItemRepository;
 
-        public InboundOrderItemController(IConfiguration configuration)
+        public InboundOrderItemController(IDatabaseUtility databaseUtility)
         {
-            _configuration = configuration;
-            _inboundOrderItemRepository = new InboundOrderItemRepository(_configuration.GetConnectionString("DatabaseConnection"));
+            _inboundOrderItemRepository = new InboundOrderItemRepository(databaseUtility);
         }
 
         [HttpGet(ApiEndpoints.InboundOrderItem.GetAll)]

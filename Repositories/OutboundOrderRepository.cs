@@ -1,16 +1,16 @@
 ﻿using System.Data;
-using System.Data.SqlClient;
 using WillsIMS.Models;
+using WillsIMS.Utilities;
 
 namespace WillsIMS.Repositories
 {
     public class OutboundOrderRepository
     {
-        private readonly string _connectionString;
+        private readonly IDatabaseUtility _databaseUtility;
 
-        public OutboundOrderRepository(string connectionString)
+        public OutboundOrderRepository(IDatabaseUtility databaseUtility)
         {
-            _connectionString = connectionString;
+            _databaseUtility = databaseUtility;
         }
 
         public async Task<IEnumerable<OutboundOrder>> GetAllOutboundOrders()
@@ -22,20 +22,7 @@ namespace WillsIMS.Repositories
                             FROM OutboundOrder
                             ";
 
-                DataTable dt = new DataTable();
-                SqlDataReader reader;
-                using (SqlConnection connection = new SqlConnection(_connectionString))
-                {
-                    await connection.OpenAsync();
-                    using (SqlCommand command = new SqlCommand(query, connection))
-                    {
-                        reader = command.ExecuteReader();
-                        dt.Load(reader);
-                        reader.Close();
-                        connection.Close();
-                    }
-                }
-
+                DataTable dt = await _databaseUtility.QueryDatabase(query);
                 List<OutboundOrder> outboundOrders = new List<OutboundOrder>();
 
                 foreach (DataRow row in dt.Rows)

@@ -1,7 +1,10 @@
+using WillsIMS.Utilities;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddSingleton<IDatabaseUtility, DatabaseUtility>();
 
 var app = builder.Build();
 
