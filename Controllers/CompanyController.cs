@@ -14,8 +14,26 @@ namespace WillsIMS.Controllers
             _companyRepository = new CompanyRepository(databaseUtility);
         }
 
+        [HttpGet(ApiEndpoints.Company.Get)]
+        public async Task<IActionResult> Get([FromRoute]string id)
+        {
+            try
+            {
+                var company = await _companyRepository.GetCompany(id);
+
+                if (company is null)
+                    return NotFound();
+
+                return Ok(company);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest("An error occurred: [ " + ex + " ]");
+            }
+        }
+
         [HttpGet(ApiEndpoints.Company.GetAll)]
-        public async Task<IActionResult> Get()
+        public async Task<IActionResult> GetAll()
         {
             try
             {
