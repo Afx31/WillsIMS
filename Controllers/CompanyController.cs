@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using WillsIMS.Models;
 using WillsIMS.Repositories;
 using WillsIMS.Utilities;
+using static WillsIMS.ApiEndpoints;
 
 namespace WillsIMS.Controllers
 {
@@ -39,6 +41,45 @@ namespace WillsIMS.Controllers
             {
                 var companies = await _companyRepository.GetAllCompanies();
                 return Ok(companies);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest("An error occurred: [ " + ex + " ]");
+            }
+        }
+
+        [HttpPut(ApiEndpoints.Company.Update)]
+        public async Task<IActionResult> Update([FromRoute] string id, [FromBody] Models.Company company)
+        {
+            try
+            {
+                if (id != company.CompanyId.ToString())
+                    return BadRequest("Company Id mismatch");
+
+                var updatedCompany = await _companyRepository.UpdateCompany(id, company);
+
+                if (updatedCompany == null)
+                    return NotFound();
+
+                return Ok(updatedCompany);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest("An error occurred: [ " + ex + " ]");
+            }
+        }
+
+        [HttpDelete(ApiEndpoints.Company.Delete)]
+        public async Task<IActionResult> Delete([FromRoute] string id)
+        {
+            try
+            {
+                var deletedCompany = await _companyRepository.DeleteCompany(id);
+
+                if (!deletedCompany)
+                    return NotFound();
+
+                return Ok();
             }
             catch (Exception ex)
             {

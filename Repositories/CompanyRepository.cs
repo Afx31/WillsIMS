@@ -1,4 +1,6 @@
-﻿using System.Data;
+﻿using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.AspNetCore.Mvc;
+using System.Data;
 using WillsIMS.Models;
 using WillsIMS.Utilities;
 
@@ -38,7 +40,7 @@ namespace WillsIMS.Repositories
                     };
                     companies.Add(company);
                 }
-                
+
                 return companies.FirstOrDefault();
             }
             catch (Exception ex)
@@ -72,6 +74,51 @@ namespace WillsIMS.Repositories
                 }
 
                 return companies;
+            }
+            catch (Exception ex)
+            {
+                throw new NotImplementedException("ERROR: Company");
+            }
+        }
+
+        public async Task<Company> UpdateCompany(string id, Company company)
+        {
+            try
+            {
+                var existingComapny = await GetCompany(id);
+                if (existingComapny == null)
+                    return null;
+
+                string query = $@"
+                            UPDATE Company
+                            SET CompanyType = {company.CompanyType}, Name = '{company.Name}',
+                            Email = '{company.Email}', Phone = '{company.Phone}', Address = '{company.Address}'
+                            WHERE CompanyId = {id}
+                            ";
+
+                var dt = await _databaseUtility.QueryDatabase(query);
+                var returnResponse = dt;
+
+                return company;
+            }
+            catch (Exception ex)
+            {
+                throw new NotImplementedException("ERROR: Company");
+            }
+        }
+
+        public Task<bool> DeleteCompany(string id)
+        {
+            try
+            {
+                string query = $@"
+                            DELETE FROM Company
+                            WHERE CompanyId = {id}
+                            ";
+
+                var res = _databaseUtility.QueryDatabase(query);
+
+                return Task.FromResult(true);
             }
             catch (Exception ex)
             {
