@@ -1,8 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using WillsIMS.Models;
 using WillsIMS.Repositories;
 using WillsIMS.Utilities;
-using static WillsIMS.ApiEndpoints;
 
 namespace WillsIMS.Controllers
 {
@@ -16,12 +14,23 @@ namespace WillsIMS.Controllers
             _companyRepository = new CompanyRepository(databaseUtility);
         }
 
+        [HttpPost(ApiEndpoints.Company.Create)]
+        public async Task<IActionResult> Create([FromBody]Models.Company company)
+        {
+            var res = await _companyRepository.Create(company);
+
+            if (!res)
+                return BadRequest(); // TODO: Handle this better
+
+            return Ok();
+        }
+
         [HttpGet(ApiEndpoints.Company.Get)]
         public async Task<IActionResult> Get([FromRoute]string id)
         {
             try
             {
-                var company = await _companyRepository.GetCompany(id);
+                var company = await _companyRepository.Get(id);
 
                 if (company is null)
                     return NotFound();
@@ -39,7 +48,7 @@ namespace WillsIMS.Controllers
         {
             try
             {
-                var companies = await _companyRepository.GetAllCompanies();
+                var companies = await _companyRepository.GetAll();
                 return Ok(companies);
             }
             catch (Exception ex)
@@ -56,7 +65,7 @@ namespace WillsIMS.Controllers
                 if (id != company.CompanyId.ToString())
                     return BadRequest("Company Id mismatch");
 
-                var updatedCompany = await _companyRepository.UpdateCompany(id, company);
+                var updatedCompany = await _companyRepository.Update(id, company);
 
                 if (updatedCompany == null)
                     return NotFound();
@@ -74,9 +83,9 @@ namespace WillsIMS.Controllers
         {
             try
             {
-                var deletedCompany = await _companyRepository.DeleteCompany(id);
+                var res = await _companyRepository.Delete(id);
 
-                if (!deletedCompany)
+                if (!res)
                     return NotFound();
 
                 return Ok();

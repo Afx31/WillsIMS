@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Http.HttpResults;
-using Microsoft.AspNetCore.Mvc;
-using System.Data;
+﻿using System.Data;
 using WillsIMS.Models;
 using WillsIMS.Utilities;
 
@@ -15,7 +13,28 @@ namespace WillsIMS.Repositories
             _databaseUtility = databaseUtility;
         }
 
-        public async Task<Company> GetCompany(string id)
+        public async Task<bool> Create(Company company)
+        {
+            try
+            {
+                int nextCompanyId = _databaseUtility.GetNextAvailableId(company.CompanyTableName);
+
+                string query = $@"
+                            INSERT INTO Company (CompanyId, CompanyType, Name, Email, Phone, Address)
+                            VALUES ({nextCompanyId}, {company.CompanyType}, '{company.Name}', '{company.Email}', '{company.Phone}', '{company.Address}')
+                            ";
+
+                var res = await _databaseUtility.QueryDatabase(query);
+
+                return await Task.FromResult(true);
+            }
+            catch (Exception ex)
+            {
+                throw new NotImplementedException("ERROR: Company - Create");
+            }
+        }
+
+        public async Task<Company> Get(string id)
         {
             try
             {
@@ -45,10 +64,11 @@ namespace WillsIMS.Repositories
             }
             catch (Exception ex)
             {
-                throw new NotImplementedException("ERROR: Company");
+                throw new NotImplementedException("ERROR: Company - Get");
             }
         }
-        public async Task<IEnumerable<Company>> GetAllCompanies()
+
+        public async Task<IEnumerable<Company>> GetAll()
         {
             try
             {
@@ -77,15 +97,15 @@ namespace WillsIMS.Repositories
             }
             catch (Exception ex)
             {
-                throw new NotImplementedException("ERROR: Company");
+                throw new NotImplementedException("ERROR: Company - GetAll");
             }
         }
 
-        public async Task<Company> UpdateCompany(string id, Company company)
+        public async Task<Company> Update(string id, Company company)
         {
             try
             {
-                var existingComapny = await GetCompany(id);
+                var existingComapny = await Get(id);
                 if (existingComapny == null)
                     return null;
 
@@ -103,11 +123,11 @@ namespace WillsIMS.Repositories
             }
             catch (Exception ex)
             {
-                throw new NotImplementedException("ERROR: Company");
+                throw new NotImplementedException("ERROR: Company - Update");
             }
         }
 
-        public Task<bool> DeleteCompany(string id)
+        public async Task<bool> Delete(string id)
         {
             try
             {
@@ -118,11 +138,11 @@ namespace WillsIMS.Repositories
 
                 var res = _databaseUtility.QueryDatabase(query);
 
-                return Task.FromResult(true);
+                return await Task.FromResult(true);
             }
             catch (Exception ex)
             {
-                throw new NotImplementedException("ERROR: Company");
+                throw new NotImplementedException("ERROR: Company - Delete");
             }
         }
     }
