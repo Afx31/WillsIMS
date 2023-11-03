@@ -8,3 +8,28 @@ table {
 th {
   padding-right: 20px;
 }
+
+.company-get-all {
+  border: .5px solid black;
+  margin-bottom: 10px;
+}
+
+.company-get {
+  border: .5px solid black;
+  margin-bottom: 10px;
+}
+
+.company-create {
+  border: .5px solid black;
+  margin-bottom: 10px;
+}
+
+.company-update {
+  border: .5px solid black;
+  margin-bottom: 10px;
+}
+
+.company-delete {
+  border: .5px solid black;
+  margin-bottom: 10px;
+}
