@@ -58,19 +58,16 @@ namespace WillsIMS.Controllers
         }
 
         [HttpPut(ApiEndpoints.Company.Update)]
-        public async Task<IActionResult> Update([FromRoute] string id, [FromBody] Models.Company company)
+        public async Task<IActionResult> Update([FromBody] Models.Company company)
         {
             try
             {
-                if (id != company.CompanyId.ToString())
-                    return BadRequest("Company Id mismatch");
+                var res = await _companyRepository.Update(company);
 
-                var updatedCompany = await _companyRepository.Update(id, company);
-
-                if (updatedCompany == null)
+                if (!res)
                     return NotFound();
 
-                return Ok(updatedCompany);
+                return Ok();
             }
             catch (Exception ex)
             {

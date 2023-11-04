@@ -101,25 +101,20 @@ namespace WillsIMS.Repositories
             }
         }
 
-        public async Task<Company> Update(string id, Company company)
+        public async Task<bool> Update(Company company)
         {
             try
             {
-                var existingComapny = await Get(id);
-                if (existingComapny == null)
-                    return null;
-
                 string query = $@"
                             UPDATE Company
                             SET CompanyType = {company.CompanyType}, Name = '{company.Name}',
                             Email = '{company.Email}', Phone = '{company.Phone}', Address = '{company.Address}'
-                            WHERE CompanyId = {id}
+                            WHERE CompanyId = {company.CompanyId}
                             ";
 
-                var dt = await _databaseUtility.QueryDatabase(query);
-                var returnResponse = dt;
+                var res = await _databaseUtility.QueryDatabase(query);
 
-                return company;
+                return await Task.FromResult(true);
             }
             catch (Exception ex)
             {
