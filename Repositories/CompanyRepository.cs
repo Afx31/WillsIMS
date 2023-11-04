@@ -13,7 +13,28 @@ namespace WillsIMS.Repositories
             _databaseUtility = databaseUtility;
         }
 
-        public async Task<Company> GetCompany(string id)
+        public async Task<bool> Create(Company company)
+        {
+            try
+            {
+                int nextCompanyId = _databaseUtility.GetNextAvailableId(company.CompanyTableName);
+
+                string query = $@"
+                            INSERT INTO Company (CompanyId, CompanyType, Name, Email, Phone, Address)
+                            VALUES ({nextCompanyId}, {company.CompanyType}, '{company.Name}', '{company.Email}', '{company.Phone}', '{company.Address}')
+                            ";
+
+                var res = await _databaseUtility.QueryDatabase(query);
+
+                return await Task.FromResult(true);
+            }
+            catch (Exception ex)
+            {
+                throw new NotImplementedException("ERROR: Company - Create");
+            }
+        }
+
+        public async Task<Company> Get(string id)
         {
             try
             {
@@ -38,15 +59,16 @@ namespace WillsIMS.Repositories
                     };
                     companies.Add(company);
                 }
-                
+
                 return companies.FirstOrDefault();
             }
             catch (Exception ex)
             {
-                throw new NotImplementedException("ERROR: Company");
+                throw new NotImplementedException("ERROR: Company - Get");
             }
         }
-        public async Task<IEnumerable<Company>> GetAllCompanies()
+
+        public async Task<IEnumerable<Company>> GetAll()
         {
             try
             {
@@ -75,7 +97,47 @@ namespace WillsIMS.Repositories
             }
             catch (Exception ex)
             {
-                throw new NotImplementedException("ERROR: Company");
+                throw new NotImplementedException("ERROR: Company - GetAll");
+            }
+        }
+
+        public async Task<bool> Update(Company company)
+        {
+            try
+            {
+                string query = $@"
+                            UPDATE Company
+                            SET CompanyType = {company.CompanyType}, Name = '{company.Name}',
+                            Email = '{company.Email}', Phone = '{company.Phone}', Address = '{company.Address}'
+                            WHERE CompanyId = {company.CompanyId}
+                            ";
+
+                var res = await _databaseUtility.QueryDatabase(query);
+
+                return await Task.FromResult(true);
+            }
+            catch (Exception ex)
+            {
+                throw new NotImplementedException("ERROR: Company - Update");
+            }
+        }
+
+        public async Task<bool> Delete(string id)
+        {
+            try
+            {
+                string query = $@"
+                            DELETE FROM Company
+                            WHERE CompanyId = {id}
+                            ";
+
+                var res = _databaseUtility.QueryDatabase(query);
+
+                return await Task.FromResult(true);
+            }
+            catch (Exception ex)
+            {
+                throw new NotImplementedException("ERROR: Company - Delete");
             }
         }
     }

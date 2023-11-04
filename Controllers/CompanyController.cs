@@ -14,12 +14,23 @@ namespace WillsIMS.Controllers
             _companyRepository = new CompanyRepository(databaseUtility);
         }
 
+        [HttpPost(ApiEndpoints.Company.Create)]
+        public async Task<IActionResult> Create([FromBody]Models.Company company)
+        {
+            var res = await _companyRepository.Create(company);
+
+            if (!res)
+                return BadRequest(); // TODO: Handle this better
+
+            return Ok();
+        }
+
         [HttpGet(ApiEndpoints.Company.Get)]
         public async Task<IActionResult> Get([FromRoute]string id)
         {
             try
             {
-                var company = await _companyRepository.GetCompany(id);
+                var company = await _companyRepository.Get(id);
 
                 if (company is null)
                     return NotFound();
@@ -37,8 +48,44 @@ namespace WillsIMS.Controllers
         {
             try
             {
-                var companies = await _companyRepository.GetAllCompanies();
+                var companies = await _companyRepository.GetAll();
                 return Ok(companies);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest("An error occurred: [ " + ex + " ]");
+            }
+        }
+
+        [HttpPut(ApiEndpoints.Company.Update)]
+        public async Task<IActionResult> Update([FromBody] Models.Company company)
+        {
+            try
+            {
+                var res = await _companyRepository.Update(company);
+
+                if (!res)
+                    return NotFound();
+
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest("An error occurred: [ " + ex + " ]");
+            }
+        }
+
+        [HttpDelete(ApiEndpoints.Company.Delete)]
+        public async Task<IActionResult> Delete([FromRoute] string id)
+        {
+            try
+            {
+                var res = await _companyRepository.Delete(id);
+
+                if (!res)
+                    return NotFound();
+
+                return Ok();
             }
             catch (Exception ex)
             {

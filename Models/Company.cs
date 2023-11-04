@@ -4,6 +4,7 @@ namespace WillsIMS.Models
 {
     public class Company
     {
+        public string CompanyTableName = "Company";
         [Key]
         public int CompanyId { get; set; }
         public int CompanyType { get; set; }
