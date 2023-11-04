@@ -1,21 +1,17 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
 import './Data.css';
 
-export class InboundOrders extends Component {
-  static displayName = InboundOrders.name;
+const InboundOrders = () => {
+  const [loading, setLoading] = useState(true);
+  const [inboundOrders, setInboundOrders] = useState([]);
+  const [inboundOrderItems, setInboundOrderItems] = useState([]);
 
-  constructor(props) {
-    super(props);
-    this.state = { inboundOrders: [], loading: true };
-    this.state = { inboundOrderItems: [], loading: true };
-  }
+  useEffect(() => {
+    fetchInboundOrdersData();
+    fetchInboundOrderItemsData();
+  }, []);
 
-  componentDidMount() {
-    this.populateInboundOrdersData();
-    this.populateInboundOrderItemsData();
-  }
-
-  static renderInboundOrdersTable(inboundOrders) {
+  const renderInboundOrdersTable = (inboundOrders) => {
     return (
       <table>
         <thead>
@@ -38,7 +34,7 @@ export class InboundOrders extends Component {
     );
   }
 
-  static renderInboundOrderItemsTable(inboundOrderItems) {
+  const renderInboundOrderItemsTable = (inboundOrderItems) => {
     return (
       <table>
         <thead>
@@ -65,31 +61,33 @@ export class InboundOrders extends Component {
     );
   }
 
-  render() {
-    let contentsInboundOrders = this.state.loading
-      ? <p><em>Loading...</em></p>
-      : InboundOrders.renderInboundOrdersTable(this.state.inboundOrders);
-    let contentsInboundOrderItems = this.state.loading
-      ? <p><em>Loading...</em></p>
-      : InboundOrders.renderInboundOrderItemsTable(this.state.inboundOrderItems);
+  let contentsInboundOrders = loading
+    ? <p><em>Loading...</em></p>
+    : renderInboundOrdersTable(inboundOrders);
+  let contentsInboundOrderItems = loading
+    ? <p><em>Loading...</em></p>
+    : renderInboundOrderItemsTable(inboundOrderItems);
 
-    return (
-      <div className='dataContainer'>
-        <h1 id='tableLabel'>Inbound Orders</h1>
-        {contentsInboundOrders}
-        {contentsInboundOrderItems}
-      </div>
-    );
-  }
+  return (
+    <div className='dataContainer'>
+      <h1 id='tableLabel'>Inbound Orders</h1>
+      {contentsInboundOrders}
+      {contentsInboundOrderItems}
+    </div>
+  );
 
-  async populateInboundOrdersData() {
+  async function fetchInboundOrdersData() {
     const res = await fetch('/api/inboundOrder');
     const data = await res.json();
-    this.setState({ inboundOrders: data, loading: false });
+    setInboundOrders(data);
+    setLoading(false);
   }
-  async populateInboundOrderItemsData() {
+  async function fetchInboundOrderItemsData() {
     const res = await fetch('/api/inboundOrderItem');
     const data = await res.json();
-    this.setState({ inboundOrderItems: data, loading: false });
+    setInboundOrderItems(data);
+    setLoading(false);
   }
 }
+
+export default InboundOrders;

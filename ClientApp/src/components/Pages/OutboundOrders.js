@@ -1,21 +1,17 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
 import './Data.css';
 
-export class OutboundOrders extends Component {
-  static displayName = OutboundOrders.name;
+const OutboundOrders = () => {
+  const [loading, setLoading] = useState(true);
+  const [outboundOrders, setOutboundOrders] = useState([]);
+  const [outboundOrderItems, setOutboundOrderItems] = useState([]);
+  
+  useEffect(() => {
+    fetchOutboundOrdersData();
+    fetchOutboundOrderItemsData();
+  }, []);
 
-  constructor(props) {
-    super(props);
-    this.state = { outboundOrders: [], loading: true };
-    this.state = { outboundOrderItems: [], loading: true };
-  }
-
-  componentDidMount() {
-    this.populateOutboundOrdersData();
-    this.populateOutboundOrderItemsData();
-  }
-
-  static renderOutboundOrdersTable(outboundOrders) {
+  const renderOutboundOrdersTable = (outboundOrders) => {
     return (
       <table>
         <thead>
@@ -38,7 +34,7 @@ export class OutboundOrders extends Component {
     );
   }
 
-  static renderOutboundOrderItemsTable(outboundOrderItems) {
+  const renderOutboundOrderItemsTable = (outboundOrderItems) => {
     return (
       <table>
         <thead>
@@ -65,31 +61,33 @@ export class OutboundOrders extends Component {
     );
   }
 
-  render() {
-    let contentsOutboundOrders = this.state.loading
-      ? <p><em>Loading...</em></p>
-      : OutboundOrders.renderOutboundOrdersTable(this.state.outboundOrders);
-    let contentsOutboundOrderItems = this.state.loading
-      ? <p><em>Loading...</em></p>
-      : OutboundOrders.renderOutboundOrderItemsTable(this.state.outboundOrderItems);
+  let contentsOutboundOrders = loading
+    ? <p><em>Loading...</em></p>
+    : renderOutboundOrdersTable(outboundOrders);
+  let contentsOutboundOrderItems = loading
+    ? <p><em>Loading...</em></p>
+    : renderOutboundOrderItemsTable(outboundOrderItems);
 
-    return (
-      <div className='dataContainer'>
-        <h1 id='tableLabel'>Outbound Orders</h1>
-        {contentsOutboundOrders}
-        {contentsOutboundOrderItems}
-      </div>
-    );
-  }
+  return (
+    <div className='dataContainer'>
+      <h1 id='tableLabel'>Outbound Orders</h1>
+      {contentsOutboundOrders}
+      {contentsOutboundOrderItems}
+    </div>
+  );
 
-  async populateOutboundOrdersData() {
+  async function fetchOutboundOrdersData() {
     const res = await fetch('/api/outboundOrder');
     const data = await res.json();
-    this.setState({ outboundOrders: data, loading: false });
+    setOutboundOrders(data);
+    setLoading(false);
   }
-  async populateOutboundOrderItemsData() {
+  async function fetchOutboundOrderItemsData() {
     const res = await fetch('/api/outboundOrderItem');
     const data = await res.json();
-    this.setState({ outboundOrderItems: data, loading: false });
+    setOutboundOrderItems(data);
+    setLoading(false);
   }
 }
+
+export default OutboundOrders;

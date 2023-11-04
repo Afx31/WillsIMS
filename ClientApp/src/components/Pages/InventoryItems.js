@@ -1,19 +1,15 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
 import './Data.css';
 
-export class InventoryItems extends Component {
-  static displayName = InventoryItems.name;
+const InventoryItems = () => {
+  const [loading, setLoading] = useState(true);
+  const [inventoryItems, setInventoryItems] = useState([]);
 
-  constructor(props) {
-    super(props);
-    this.state = { inventoryItems: [], loading: true };
-  }
+  useEffect(() => {
+    fetchInventoryItemsData();
+  }, []);
 
-  componentDidMount() {
-    this.populateInventoryItemsData();
-  }
-
-  static renderInventoryItemsTable(inventoryItems) {
+  const renderInventoryItemsTable = (inventoryItems) => {
     return (
       <table>
         <thead>
@@ -42,23 +38,24 @@ export class InventoryItems extends Component {
     );
   }
 
-  render() {
-    let contentInventoryItems = this.state.loading
-      ? <p><em>Loading...</em></p>
-      : InventoryItems.renderInventoryItemsTable(this.state.inventoryItems);
+  let contentInventoryItems = loading
+    ? <p><em>Loading...</em></p>
+    : renderInventoryItemsTable(inventoryItems);
 
-    return (
-      <div className='dataContainer'>
-        <h1 id='tableLabel'>Inventory Items</h1>
-        {contentInventoryItems}
-      </div>
-    );
-  }
-
-  async populateInventoryItemsData() {
+  return (
+    <div className='dataContainer'>
+      <h1 id='tableLabel'>Inventory Items</h1>
+      {contentInventoryItems}
+    </div>
+  );
+  
+  async function fetchInventoryItemsData() {
     //const res = await fetch('/api/inventoryItem');
     const res = await fetch('/api/inventoryItemWithBinLocations');
     const data = await res.json();
-    this.setState({ inventoryItems: data, loading: false });
+    setInventoryItems(data);
+    setLoading(false);
   }
 }
+
+export default InventoryItems;

@@ -1,19 +1,15 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
 import './Data.css';
 
-export class Products extends Component {
-  static displayName = Products.name;
+const Products = () => {
+  const [loading, setLoading] = useState(true);
+  const [products, setProducts] = useState([]);
 
-  constructor(props) {
-    super(props);
-    this.state = { products: [], loading: true };
-  }
+  useEffect(() => {
+    fetchProductData();
+  }, []);
 
-  componentDidMount() {
-    this.populateProductData();
-  }
-
-  static renderProductsTable(products) {
+  const renderProductsTable = (products) => {
     return (
       <table>
         <thead>
@@ -40,22 +36,23 @@ export class Products extends Component {
     );
   }
 
-  render() {
-    let contentProducts = this.state.loading
-      ? <p><em>Loading...</em></p>
-      : Products.renderProductsTable(this.state.products);
+  let contentProducts = loading
+    ? <p><em>Loading...</em></p>
+    : renderProductsTable(products);
 
-    return (
-      <div className='dataContainer'>
-        <h1 id='tableLabel'>Products</h1>
-        {contentProducts}
-      </div>
-    );
-  }
+  return (
+    <div className='dataContainer'>
+      <h1 id='tableLabel'>Products</h1>
+      {contentProducts}
+    </div>
+  );
 
-  async populateProductData() {
+  async function fetchProductData() {
     const res = await fetch('/api/product');
     const data = await res.json();
-    this.setState({ products: data, loading: false });
+    setProducts(data);
+    setLoading(false);
   }
 }
+
+export default Products;

@@ -1,19 +1,15 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
 import './Data.css';
 
-export class BinLocations extends Component {
-  static displayName = BinLocations.name;
+const BinLocations = () => {
+  const [loading, setLoading] = useState(true);
+  const [binLocation, setBinLocation] = useState([]);
 
-  constructor(props) {
-    super(props);
-    this.state = { binLocation: [], loading: true };
-  }
+  useEffect(() => {
+    fetchBinLocationData();
+  }, []);
 
-  componentDidMount() {
-    this.populateBinLocationData();
-  }
-
-  static renderBinLocationTable(binLocation) {
+  const renderBinLocationTable = (binLocation) => {
     return (
       <table>
         <thead>
@@ -35,23 +31,24 @@ export class BinLocations extends Component {
       </table>
     );
   }
+  
+  let contentBinLocation = loading
+    ? <p><em>Loading...</em></p>
+    : renderBinLocationTable(binLocation);
 
-  render() {
-    let contentBinLocation = this.state.loading
-      ? <p><em>Loading...</em></p>
-      : BinLocations.renderBinLocationTable(this.state.binLocation);
+  return (
+    <div className='dataContainer'>
+      <h1 id='tableLabel'>Bin Locations</h1>
+      {contentBinLocation}
+    </div>
+  );
 
-    return (
-      <div className='dataContainer'>
-        <h1 id='tableLabel'>Bin Locations</h1>
-        {contentBinLocation}
-      </div>
-    );
-  }
-
-  async populateBinLocationData() {
+  async function fetchBinLocationData() {
     const res = await fetch('/api/binLocation');
     const data = await res.json();
-    this.setState({ binLocation: data, loading: false });
+    setBinLocation(data);
+    setLoading(false);
   }
 }
+
+export default BinLocations;

@@ -23,8 +23,8 @@ const keyFilePath = path.join(baseFolder, `${certificateName}.key`);
 if (!fs.existsSync('.env.development.local')) {
   fs.writeFileSync(
     '.env.development.local',
-`SSL_CRT_FILE=${certFilePath}
-SSL_KEY_FILE=${keyFilePath}`
+    `SSL_CRT_FILE=${certFilePath}
+    SSL_KEY_FILE=${keyFilePath}`
   );
 } else {
   let lines = fs.readFileSync('.env.development.local')

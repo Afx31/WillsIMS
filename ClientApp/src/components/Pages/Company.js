@@ -1,119 +1,94 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
 import './Data.css';
 
-export class Company extends Component {
-  static displayName = Company.name;
+const Company = () => {
+  const [loading, setLoading] = useState(true);
+  const [inputGetId, setInputGetId] = useState(0);
+  const [inputDeleteId, setInputDeleteId] = useState(0);
+  const [companies, setCompanies] = useState([]);
+  const [company, setCompany] = useState({
+    companyId: 0,
+    companyType: 0,
+    name: '',
+    email: '',
+    phone: '',
+    address: '',
+  });
+  const [createCompany, setCreateCompany] = useState({
+    companyId: 0,
+    companyType: 0,
+    name: '',
+    email: '',
+    phone: '',
+    address: '',
+  });
+  const [updateCompany, setUpdateCompany] = useState({
+    companyId: 0,
+    companyType: 0,
+    name: '',
+    email: '',
+    phone: '',
+    address: '',
+  });
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      companies: [],
-      inputGetId: 0,
-      inputDeleteId: 0,
-      company: {
-        companyId: 0,
-        companyType: 0,
-        name: '',
-        email: '',
-        phone: '',
-        address: '',
-      },
-      createCompany: {
-        companyId: 0,
-        companyType: 0,
-        name: '',
-        email: '',
-        phone: '',
-        address: '',
-      },
-      updateCompany: {
-        companyId: 0,
-        companyType: 0,
-        name: '',
-        email: '',
-        phone: '',
-        address: '',
-      },
-      loading: true,
-      isLoading: false,
-    };
+  useEffect(() => {
+    fetchCompaniesData();
+  }, []);
 
-    this.handleGetInputChange = this.handleGetInputChange.bind(this);
-    this.handleDeleteInputChange = this.handleDeleteInputChange.bind(this);
-    this.onGetCompanyBtnClick = this.onGetCompanyBtnClick.bind(this);
-    this.handleCreateInputChange = this.handleCreateInputChange.bind(this);
-    this.onCreateBtnClick = this.onCreateBtnClick.bind(this);
-    this.handleUpdateInputChange = this.handleUpdateInputChange.bind(this);
-    this.onUpdateBtnClick = this.onUpdateBtnClick.bind(this);
-    this.onDeleteCompanyBtnClick = this.onDeleteCompanyBtnClick.bind(this);
+  const handleGetInputChange = (e) => {
+    setInputGetId(e.target.value);
+  }
+  const handleDeleteInputChange = (e) => {
+    setInputDeleteId(e.target.value);
   }
 
-  componentDidMount() {
-    this.fetchCompaniesData();
-  }
-
-  handleGetInputChange(e) {
-    this.setState({ inputGetId: e.target.value });
-  }
-  handleDeleteInputChange(e) {
-    this.setState({ inputDeleteId: e.target.value });
-  }
-
-  async onGetCompanyBtnClick() {
-    this.setState({ isLoading: true });
-    
+  const onGetCompanyBtnClick = () => {
     try {
-      await this.fetchCompanyData(this.state.inputGetId);
-    } catch (error) {
-      console.error('An error occurred: ', error);
-    } finally {
-      this.setState({ isLoading: false });
-    }
-  }
-
-  handleCreateInputChange(e) {
-    const { name, value } = e.target;
-    this.setState((prevState) => ({
-      createCompany: {
-        ...prevState.createCompany,
-        [name]: value,
-      },
-    }));
-  }
-  async onCreateBtnClick() {
-    try {
-      await this.fetchCreateCompany();
+      fetchCompanyData(inputGetId);
     } catch (error) {
       console.error('An error occurred: ', error);
     }
   }
 
-  handleUpdateInputChange(e) {
-    const { name, value } = e.target;
-    this.setState((prevState) => ({
-      updateCompany: {
-        ...prevState.updateCompany,
-        [name]: value,
-      },
-    }));
+  const handleCreateInputChange = (e) => {
+    e.preventDefault();
+    setCreateCompany({
+      ...createCompany,
+      [e.target.name]: e.target.value
+    });
   }
-  async onUpdateBtnClick() {
+  const onCreateBtnClick = () => {
     try {
-      await this.fetchUpdateCompany();
+      fetchCreateCompany();
     } catch (error) {
       console.error('An error occurred: ', error);
     }
   }
 
-  async onDeleteCompanyBtnClick() {
+  const handleUpdateInputChange = (e) => {
+    e.preventDefault();
+    setUpdateCompany({
+      ...updateCompany,
+      [e.target.name]: e.target.value
+    });
+  }
+  const onUpdateBtnClick = () => {
     try {
-      await this.fetchDeleteCompany(this.state.inputDeleteId);
+      fetchUpdateCompany();
     } catch (error) {
       console.error('An error occurred: ', error);
     }
   }
 
-  static renderCompaniesTable(companies) {
+  const onDeleteCompanyBtnClick = () => {
+    try {
+      fetchDeleteCompany(inputDeleteId);
+    } catch (error) {
+      console.error('An error occurred: ', error);
+    }
+  }
+
+  const renderCompaniesTable = (companies) => {
     return (
       <table>
         <thead>
@@ -140,7 +115,7 @@ export class Company extends Component {
     );
   }
 
-  static renderCompanyTable(company) {
+  const renderCompanyTable = (company) => {
     return (
       <table>
         <thead>
@@ -167,150 +142,150 @@ export class Company extends Component {
     );
   }
 
-  render() {
-    let contentCompanies = this.state.loading
-      ? <p><em>Loading...</em></p>
-      : Company.renderCompaniesTable(this.state.companies);
-    let contentCompany = this.state.loading
-      ? <p><em>Loading...</em></p>
-      : Company.renderCompanyTable(this.state.company);
+  
+  let contentCompanies = loading
+    ? <p><em>Loading...</em></p>
+    : renderCompaniesTable(companies);
+  let contentCompany = loading
+    ? <p><em>Loading...</em></p>
+    : renderCompanyTable(company);
     
-    return (
-      <div className='dataContainer'>
-        <h1 id='tableLabel'>Company</h1>
+  return (
+    <div className='dataContainer'>
+      <h1 id='tableLabel'>Company</h1>
 
-        <div className='company-get-all'>
-          <h2>Get All</h2>
-          {contentCompanies}
-        </div>
-
-        <div className='company-get'>
-          <h2>Get Individual</h2>
-          <input
-            type='number'
-            placeholder='Enter Id'
-            value={this.state.inputGetOrDeleteId}
-            onChange={this.handleGetInputChange}
-          />        
-          <button onClick={this.onGetCompanyBtnClick}>Get company</button>
-          {contentCompany}
-        </div>
-
-        <div className='company-create'>
-          <h2>Create</h2>
-          <input
-            name='companyType'
-            type='number'
-            placeholder='Enter Type'
-            value={this.state.createCompany.companyType}
-            onChange={(e) => this.handleCreateInputChange(e)}
-          />
-          <input
-            name='name'
-            type='text'
-            placeholder='Enter Name'
-            value={this.state.createCompany.name}
-            onChange={(e) => this.handleCreateInputChange(e)}
-          />
-          <input
-            name='email'
-            type='text'
-            placeholder='Enter Email'
-            value={this.state.createCompany.email}
-            onChange={(e) => this.handleCreateInputChange(e)}
-          />
-          <input
-            name='phone'
-            type='text'
-            placeholder='Enter Phone'
-            value={this.state.createCompany.phone}
-            onChange={(e) => this.handleCreateInputChange(e)}
-          />
-          <input
-            name='address'
-            type='text'
-            placeholder='Enter Address'
-            value={this.state.createCompany.address}
-            onChange={(e) => this.handleCreateInputChange(e)}
-          />
-          <button type='submit' onClick={this.onCreateBtnClick}>Get company</button>
-        </div>
-
-        <div className='company-update'>
-          <h2>Update</h2>
-          <input
-            name='companyId'
-            type='number'
-            placeholder='Enter Id'
-            value={this.state.updateCompany.companyId}
-            onChange={(e) => this.handleUpdateInputChange(e)}
-          />
-          <input
-            name='companyType'
-            type='number'
-            placeholder='Enter Type'
-            value={this.state.updateCompany.companyType}
-            onChange={(e) => this.handleUpdateInputChange(e)}
-          />
-          <input
-            name='name'
-            type='text'
-            placeholder='Enter Name'
-            value={this.state.updateCompany.name}
-            onChange={(e) => this.handleUpdateInputChange(e)}
-          />
-          <input
-            name='email'
-            type='text'
-            placeholder='Enter Email'
-            value={this.state.updateCompany.email}
-            onChange={(e) => this.handleUpdateInputChange(e)}
-          />
-          <input
-            name='phone'
-            type='text'
-            placeholder='Enter Phone'
-            value={this.state.updateCompany.phone}
-            onChange={(e) => this.handleUpdateInputChange(e)}
-          />
-          <input
-            name='address'
-            type='text'
-            placeholder='Enter Address'
-            value={this.state.updateCompany.address}
-            onChange={(e) => this.handleUpdateInputChange(e)}
-          />
-          <button type='submit' onClick={this.onUpdateBtnClick}>Update company</button>
-        </div>
-
-        <div className='company-delete'>
-          <h2>Delete</h2>
-          <input
-            type='number'
-            placeholder='Enter Id'
-            value={this.state.inputGetOrDeleteId}
-            onChange={this.handleDeleteInputChange}
-          />        
-          <button onClick={this.onDeleteCompanyBtnClick}>Get company</button>
-        </div>
+      <div className='company-get-all'>
+        <h2>Get All</h2>
+        {contentCompanies}
       </div>
-    );
-  }
 
-  async fetchCompaniesData() {
+      <div className='company-get'>
+        <h2>Get Individual</h2>
+        <input
+          type='number'
+          placeholder='Enter Id'
+          value={inputGetId}
+          onChange={handleGetInputChange}
+        />        
+        <button onClick={onGetCompanyBtnClick}>Get company</button>
+        {contentCompany}
+      </div>
+
+      <div className='company-create'>
+        <h2>Create</h2>
+        <input
+          name='companyType'
+          type='number'
+          placeholder='Enter Type'
+          value={createCompany.companyType}
+          onChange={(e) => handleCreateInputChange(e)}
+        />
+        <input
+          name='name'
+          type='text'
+          placeholder='Enter Name'
+          value={createCompany.name}
+          onChange={(e) => handleCreateInputChange(e)}
+        />
+        <input
+          name='email'
+          type='text'
+          placeholder='Enter Email'
+          value={createCompany.email}
+          onChange={(e) => handleCreateInputChange(e)}
+        />
+        <input
+          name='phone'
+          type='text'
+          placeholder='Enter Phone'
+          value={createCompany.phone}
+          onChange={(e) => handleCreateInputChange(e)}
+        />
+        <input
+          name='address'
+          type='text'
+          placeholder='Enter Address'
+          value={createCompany.address}
+          onChange={(e) => handleCreateInputChange(e)}
+        />
+        <button type='submit' onClick={onCreateBtnClick}>Get company</button>
+      </div>
+
+      <div className='company-update'>
+        <h2>Update</h2>
+        <input
+          name='companyId'
+          type='number'
+          placeholder='Enter Id'
+          value={updateCompany.companyId}
+          onChange={(e) => handleUpdateInputChange(e)}
+        />
+        <input
+          name='companyType'
+          type='number'
+          placeholder='Enter Type'
+          value={updateCompany.companyType}
+          onChange={(e) => handleUpdateInputChange(e)}
+        />
+        <input
+          name='name'
+          type='text'
+          placeholder='Enter Name'
+          value={updateCompany.name}
+          onChange={(e) => handleUpdateInputChange(e)}
+        />
+        <input
+          name='email'
+          type='text'
+          placeholder='Enter Email'
+          value={updateCompany.email}
+          onChange={(e) => handleUpdateInputChange(e)}
+        />
+        <input
+          name='phone'
+          type='text'
+          placeholder='Enter Phone'
+          value={updateCompany.phone}
+          onChange={(e) => handleUpdateInputChange(e)}
+        />
+        <input
+          name='address'
+          type='text'
+          placeholder='Enter Address'
+          value={updateCompany.address}
+          onChange={(e) => handleUpdateInputChange(e)}
+        />
+        <button type='submit' onClick={onUpdateBtnClick}>Update company</button>
+      </div>
+
+      <div className='company-delete'>
+        <h2>Delete</h2>
+        <input
+          type='number'
+          placeholder='Enter Id'
+          value={inputDeleteId}
+          onChange={handleDeleteInputChange}
+        />        
+        <button onClick={onDeleteCompanyBtnClick}>Get company</button>
+      </div>
+    </div>
+  );
+
+  async function fetchCompaniesData() {
     try {
       const res = await fetch('/api/company');
 
       if (!res.ok) { throw new Error(`HTTP error! Status: ${res.status}`); }
 
-      const data = await res.json();
-      this.setState({ companies: data, loading: false });
+      const data = await res.json();      
+      setCompanies(data);
+      setLoading(false);
     } catch (err) {
       console.error('Fetch error:', err);
     }
   }
 
-  async fetchCompanyData(companyId) {
+  async function fetchCompanyData(companyId) {
     try {
       const res = await fetch(`/api/company/${companyId}`);
 
@@ -318,7 +293,9 @@ export class Company extends Component {
 
       const data = await res.json();
 
-      this.setState({
+
+      setCompany((prevState) => ({
+        ...prevState,
         company: {
           companyId: data.companyId,
           companyType: data.companyType,
@@ -327,21 +304,21 @@ export class Company extends Component {
           phone: data.phone,
           address: data.address,
         },
-        loading: false
-      });
+        loading: false,
+      }));
     } catch (err) {
       console.error('Fetch error:', err);
     } 
   }
 
-  async fetchCreateCompany() {
+  async function fetchCreateCompany() {
     try {
       const res = await fetch('/api/company', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(this.state.createCompany),
+        body: JSON.stringify(createCompany),
       });
 
       if (!res.ok) { throw new Error(`HTTP error! Status: ${res.status}`); }
@@ -350,14 +327,14 @@ export class Company extends Component {
     }
   }
 
-  async fetchUpdateCompany(companyId) {
+  async function fetchUpdateCompany(companyId) {
     try {
       const res = await fetch(`/api/company/${companyId}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(this.state.updateCompany),
+        body: JSON.stringify(updateCompany),
       });
 
       if (!res.ok) { throw new Error(`HTTP error! Status: ${res.status}`); }
@@ -366,14 +343,14 @@ export class Company extends Component {
     }
   }
 
-  async fetchDeleteCompany(companyId) {
+  async function fetchDeleteCompany(companyId) {
     try {
       const res = await fetch(`/api/company/${companyId}`, {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(this.state.createCompany),
+        body: JSON.stringify(createCompany),
       });
 
       if (!res.ok) { throw new Error(`HTTP error! Status: ${res.status}`); }
@@ -382,3 +359,5 @@ export class Company extends Component {
     }
   }
 }
+
+export default Company;
