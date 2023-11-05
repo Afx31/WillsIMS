@@ -15,7 +15,7 @@ namespace WillsIMS.Controllers
         }
 
         [HttpPost(ApiEndpoints.Company.Create)]
-        public async Task<IActionResult> Create([FromBody]Models.Company company)
+        public async Task<IActionResult> Create([FromBody] Models.Company company)
         {
             var res = await _companyRepository.Create(company);
 
@@ -26,7 +26,7 @@ namespace WillsIMS.Controllers
         }
 
         [HttpGet(ApiEndpoints.Company.Get)]
-        public async Task<IActionResult> Get([FromRoute]string id)
+        public async Task<IActionResult> Get([FromRoute] string id)
         {
             try
             {

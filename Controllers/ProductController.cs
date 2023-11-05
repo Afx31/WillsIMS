@@ -14,13 +14,78 @@ namespace WillsIMS.Controllers
             _productRepository = new ProductRepository(databaseUtility);
         }
 
-        [HttpGet(ApiEndpoints.Product.GetAll)]
-        public async Task<IActionResult> Get()
+        [HttpPost(ApiEndpoints.Product.Create)]
+        public async Task<IActionResult> Create([FromBody] Models.Product product)
+        {
+            var res = await _productRepository.Create(product);
+
+            if (!res)
+                return BadRequest(); // TODO: Handle this better
+
+            return Ok();
+        }
+
+        [HttpPost(ApiEndpoints.Product.Get)]
+        public async Task<IActionResult> Get([FromRoute] string id)
         {
             try
             {
-                var products = await _productRepository.GetAllProducts();
+                var company = await _productRepository.Get(id);
+
+                if (company is null)
+                    return NotFound();
+
+                return Ok(company);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest("An error occurred: [ " + ex + " ]");
+            }
+        }
+
+        [HttpGet(ApiEndpoints.Product.GetAll)]
+        public async Task<IActionResult> GetAll()
+        {
+            try
+            {
+                var products = await _productRepository.GetAll();
                 return Ok(products);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest("An error occurred: [ " + ex + " ]");
+            }
+        }
+
+        [HttpPut(ApiEndpoints.Product.Update)]
+        public async Task<IActionResult> Update([FromBody] Models.Product product)
+        {
+            try
+            {
+                var res = await _productRepository.Update(product);
+
+                if (!res)
+                    return NotFound();
+
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest("An error occurred: [ " + ex + " ]");
+            }
+        }
+
+        [HttpDelete(ApiEndpoints.Product.Delete)]
+        public async Task<IActionResult> Delete([FromRoute] string id)
+        {
+            try
+            {
+                var res = await _productRepository.Delete(id);
+
+                if (!res)
+                    return NotFound();
+
+                return Ok();
             }
             catch (Exception ex)
             {
