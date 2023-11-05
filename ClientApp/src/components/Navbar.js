@@ -24,7 +24,7 @@ const Navbar = () => {
     <div className='topnav'>
       <Link className='active' to='/'>Home</Link>
       <Link to='/company'>Company</Link>
-      <Link to='products'>Products</Link>
+      <Link to='product'>Product</Link>
       <Link to='/inventoryItems'>Inventory Items</Link>
       <Link to='/binlocations'>Bin Locations</Link>
       <Link to='/inboundOrders'>Inbound Orders</Link>

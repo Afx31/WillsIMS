@@ -129,7 +129,7 @@ const Company = () => {
         </thead>
         <tbody>
           {
-            <tr key={company.companyId}>
+            <tr>
               <td>{company.companyId}</td>
               <td>{company.name}</td>
               <td>{company.email}</td>
@@ -266,7 +266,7 @@ const Company = () => {
           value={inputDeleteId}
           onChange={handleDeleteInputChange}
         />        
-        <button onClick={onDeleteCompanyBtnClick}>Get company</button>
+        <button onClick={onDeleteCompanyBtnClick}>Delete company</button>
       </div>
     </div>
   );
@@ -292,8 +292,6 @@ const Company = () => {
       if (!res.ok) { throw new Error(`HTTP error! Status: ${res.status}`); }
 
       const data = await res.json();
-
-
       setCompany((prevState) => ({
         ...prevState,
         company: {
@@ -349,8 +347,7 @@ const Company = () => {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(createCompany),
+        }
       });
 
       if (!res.ok) { throw new Error(`HTTP error! Status: ${res.status}`); }

@@ -25,17 +25,17 @@ namespace WillsIMS.Controllers
             return Ok();
         }
 
-        [HttpPost(ApiEndpoints.Product.Get)]
+        [HttpGet(ApiEndpoints.Product.Get)]
         public async Task<IActionResult> Get([FromRoute] string id)
         {
             try
             {
-                var company = await _productRepository.Get(id);
+                var product = await _productRepository.Get(id);
 
-                if (company is null)
+                if (product is null)
                     return NotFound();
 
-                return Ok(company);
+                return Ok(product);
             }
             catch (Exception ex)
             {
