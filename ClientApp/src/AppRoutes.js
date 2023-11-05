@@ -1,6 +1,6 @@
 import Home from "./components/Pages/Home";
 import Company from "./components/Pages/Company";
-import Products from "./components/Pages/Products";
+import Product from "./components/Pages/Product";
 import InventoryItems from "./components/Pages/InventoryItems";
 import BinLocations from "./components/Pages/BinLocations";
 import InboundOrders from "./components/Pages/InboundOrders";
@@ -16,8 +16,8 @@ const AppRoutes = [
     element: <Company />
   },
   {
-    path: '/products',
-    element: <Products />
+    path: '/product',
+    element: <Product />
   },
   {
     path: '/inventoryItems',

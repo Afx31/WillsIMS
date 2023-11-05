@@ -4,6 +4,7 @@ namespace WillsIMS.Models
 {
     public class Product
     {
+        public string ProductTableName = "Product";
         [Key]
         public int ProductId { get; set; }
         public string Name { get; set; }
