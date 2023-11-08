@@ -5,21 +5,21 @@ using WillsIMS.Utilities;
 namespace WillsIMS.Controllers
 {
     [ApiController]
-    public class ProductController : ControllerBase
+    public class BinLocationController : ControllerBase
     {
-        private readonly ProductRepository _productRepository;
+        private readonly BinLocationRepository _binLocationRepository;
 
-        public ProductController(IDatabaseUtility databaseUtility)
+        public BinLocationController(IDatabaseUtility databaseUtility)
         {
-            _productRepository = new ProductRepository(databaseUtility);
+            _binLocationRepository = new BinLocationRepository(databaseUtility);
         }
 
-        [HttpPost(ApiEndpoints.Product.Create)]
-        public async Task<IActionResult> Create([FromBody] Models.Product product)
+        [HttpPost(ApiEndpoints.BinLocation.Create)]
+        public async Task<IActionResult> Create([FromBody] Models.BinLocation binLocation)
         {
             try
             {
-                var res = await _productRepository.Create(product);
+                var res = await _binLocationRepository.Create(binLocation);
 
                 if (!res)
                     return BadRequest(); // TODO: Handle this better
@@ -32,17 +32,17 @@ namespace WillsIMS.Controllers
             }
         }
 
-        [HttpGet(ApiEndpoints.Product.Get)]
+        [HttpGet(ApiEndpoints.BinLocation.Get)]
         public async Task<IActionResult> Get([FromRoute] string id)
         {
             try
             {
-                var product = await _productRepository.Get(id);
+                var binLocation = await _binLocationRepository.Get(id);
 
-                if (product is null)
+                if (binLocation is null)
                     return NotFound();
 
-                return Ok(product);
+                return Ok(binLocation);
             }
             catch (Exception ex)
             {
@@ -50,13 +50,13 @@ namespace WillsIMS.Controllers
             }
         }
 
-        [HttpGet(ApiEndpoints.Product.GetAll)]
+        [HttpGet(ApiEndpoints.BinLocation.GetAll)]
         public async Task<IActionResult> GetAll()
         {
             try
             {
-                var products = await _productRepository.GetAll();
-                return Ok(products);
+                var binLocation = await _binLocationRepository.GetAll();
+                return Ok(binLocation);
             }
             catch (Exception ex)
             {
@@ -64,12 +64,12 @@ namespace WillsIMS.Controllers
             }
         }
 
-        [HttpPut(ApiEndpoints.Product.Update)]
-        public async Task<IActionResult> Update([FromBody] Models.Product product)
+        [HttpPut(ApiEndpoints.BinLocation.Update)]
+        public async Task<IActionResult> Update([FromBody] Models.BinLocation binLocation)
         {
             try
             {
-                var res = await _productRepository.Update(product);
+                var res = await _binLocationRepository.Update(binLocation);
 
                 if (!res)
                     return NotFound();
@@ -82,12 +82,12 @@ namespace WillsIMS.Controllers
             }
         }
 
-        [HttpDelete(ApiEndpoints.Product.Delete)]
+        [HttpDelete(ApiEndpoints.BinLocation.Delete)]
         public async Task<IActionResult> Delete([FromRoute] string id)
         {
             try
             {
-                var res = await _productRepository.Delete(id);
+                var res = await _binLocationRepository.Delete(id);
 
                 if (!res)
                     return NotFound();
@@ -96,7 +96,7 @@ namespace WillsIMS.Controllers
             }
             catch (Exception ex)
             {
-                return BadRequest("An error occurred: [ " + ex + " ]");
+                BadRequest("An error occurred: [ " + ex + " ]");
             }
         }
     }
