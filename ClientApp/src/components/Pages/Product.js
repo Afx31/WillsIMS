@@ -143,8 +143,8 @@ const Product = () => {
     ? <p><em>Loading...</em></p>
     : renderProductsTable(products);
   let contentProduct = loading
-  ? <p><em>Loading...</em></p>
-  : renderProductTable(product);
+    ? <p><em>Loading...</em></p>
+    : renderProductTable(product);
 
   return (
     <div className='dataContainer'>
@@ -269,9 +269,8 @@ const Product = () => {
 
   async function fetchProductData(productId) {
     try {
-      console.log('test1', productId)
       const res = await fetch(`/api/product/${productId}`);
-console.log('test2')
+      
       if (!res.ok) { throw new Error(`HTTP error! Status: ${res.status}`); }
 
       const data = await res.json();
