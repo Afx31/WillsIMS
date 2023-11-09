@@ -96,7 +96,7 @@ namespace WillsIMS.Controllers
             }
             catch (Exception ex)
             {
-                BadRequest("An error occurred: [ " + ex + " ]");
+                return BadRequest("An error occurred: [ " + ex + " ]");
             }
         }
     }
