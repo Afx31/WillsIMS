@@ -13,7 +13,60 @@ namespace WillsIMS.Repositories
             _databaseUtility = databaseUtility;
         }
 
-        public async Task<IEnumerable<InventoryItem>> GetAllInventoryItems()
+        public async Task<bool> Create(InventoryItem inventoryItem)
+        {
+            try
+            {
+                int nextInventoryItemId = _databaseUtility.GetNextAvailableId(inventoryItem.InventoryItemTableName);
+
+                string query = $@"
+                        INSERT INTO InventoryItem (InventoryItemId, ProductId, CurrentStockQuantity, MinStockThreshold, ReorderPoint)
+                        VALUES ({nextInventoryItemId}, {inventoryItem.ProductId}, {inventoryItem.CurrentStockQuantity}, {inventoryItem.MinStockThreshold}, {inventoryItem.ReorderPoint})
+                        ";
+                var res = await _databaseUtility.QueryDatabase(query);
+                return await Task.FromResult(true);
+            }
+            catch (Exception ex)
+            {
+                throw new NotImplementedException("ERROR: InventoryItem - Create");
+            }
+        }
+
+        public async Task<InventoryItem> Get(string id)
+        {
+            try
+            {
+                string query = $@"
+                            SELECT *
+                            FROM InventoryItem
+                            WHERE InventoryItemId = {id}
+                            ";
+
+                DataTable dt = await _databaseUtility.QueryDatabase(query);
+                List<InventoryItem> inventoryItems = new List<InventoryItem>();
+
+                foreach (DataRow row in dt.Rows)
+                {
+                    InventoryItem inventoryItem = new InventoryItem
+                    {
+                        InventoryItemId = Convert.ToInt32(row["InventoryItemId"]),
+                        ProductId = Convert.ToInt32(row["ProductId"]),
+                        CurrentStockQuantity = Convert.ToInt32(row["CurrentStockQuantity"]),
+                        MinStockThreshold = Convert.ToInt32(row["MinStockThreshold"]),
+                        ReorderPoint = Convert.ToInt32(row["ReorderPoint"])
+                    };
+                    inventoryItems.Add(inventoryItem);
+                }
+
+                return inventoryItems.FirstOrDefault();
+            }
+            catch (Exception ex)
+            {
+                throw new NotImplementedException("ERROR: InventoryItem - Get");
+            }
+        }
+
+        public async Task<IEnumerable<InventoryItem>> GetAll()
         {
             try
             {
@@ -42,7 +95,7 @@ namespace WillsIMS.Repositories
             }
             catch (Exception ex)
             {
-                throw new NotImplementedException("Exception has occurred in the Inventory Item data operations.");
+                throw new NotImplementedException("ERROR: InventoryItem - GetAll");
             }
         }
 
@@ -98,6 +151,46 @@ namespace WillsIMS.Repositories
             catch (Exception ex)
             {
                 throw new NotImplementedException("Exception has occurred in the Inventory Item with Bin Location data operations.");
+            }
+        }
+
+        public async Task<bool> Update(InventoryItem inventoryItem)
+        {
+            try
+            {
+                string query = $@"
+                            UPDATE InventoryItem
+                            SET InventoryItemId = {inventoryItem.InventoryItemId}, CurrentStockQuantity = {inventoryItem.CurrentStockQuantity},
+                            MinStockThreshold = {inventoryItem.MinStockThreshold}, ReorderPoint = {inventoryItem.ReorderPoint}
+                            WHERE InventoryItemId = {inventoryItem.InventoryItemId}
+                            ";
+
+                var res = await _databaseUtility.QueryDatabase(query);
+
+                return await Task.FromResult(true);
+            }
+            catch (Exception ex)
+            {
+                throw new NotImplementedException("ERROR: InventoryItem - Update");
+            }
+        }
+
+        public async Task<bool> Delete(string id)
+        {
+            try
+            {
+                string query = $@"
+                            DELETE FROM InventoryItem
+                            WHERE InventoryItemId = {id}
+                            ";
+
+                var res = _databaseUtility.QueryDatabase(query);
+
+                return await Task.FromResult(true);
+            }
+            catch (Exception ex)
+            {
+                throw new NotImplementedException("ERROR: InventoryItem - Delete");
             }
         }
     }
