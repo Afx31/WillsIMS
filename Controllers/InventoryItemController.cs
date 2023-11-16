@@ -37,7 +37,7 @@ namespace WillsIMS.Controllers
         {
             try
             {
-                var inventoryItem = _inventoryItemRepository.Get(id);
+                var inventoryItem = await _inventoryItemRepository.Get(id);
 
                 if (inventoryItem is null)
                     return NotFound();

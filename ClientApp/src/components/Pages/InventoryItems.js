@@ -131,13 +131,13 @@ const InventoryItems = () => {
           </tr>
         </thead>
         <tbody>
-          <tr key={item.inventoryItemId}>
-            <td>{item.inventoryItemId}</td>
-            <td>{item.productId}</td>
-            <td>{item.currentStockQuantity}</td>
-            <td>{item.minStockThreshold}</td>
-            <td>{item.reorderPoint}</td>
-            <td>{item.binLocations}</td>
+          <tr key={inventoryItem.inventoryItemId}>
+            <td>{inventoryItem.inventoryItemId}</td>
+            <td>{inventoryItem.productId}</td>
+            <td>{inventoryItem.currentStockQuantity}</td>
+            <td>{inventoryItem.minStockThreshold}</td>
+            <td>{inventoryItem.reorderPoint}</td>
+            <td>{inventoryItem.binLocations}</td>
           </tr>
         </tbody>
       </table>
@@ -253,7 +253,7 @@ const InventoryItems = () => {
           value={inputDeleteId}
           onChange={handleDeleteInputChange}
         />        
-        <button onClick={onDeleteProductBtnClick}>Delete inventoryItem</button>
+        <button onClick={onDeleteInventoryItemBtnClick}>Delete inventoryItem</button>
       </div>
 
     </div>
