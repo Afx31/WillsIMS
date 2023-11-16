@@ -4,6 +4,7 @@ namespace WillsIMS.Models
 {
     public class InventoryItem
     {
+        public string InventoryItemTableName = "InventoryItem";
         [Key]
         public int InventoryItemId { get; set; }
         public int ProductId { get; set; }
