@@ -103,7 +103,7 @@ namespace WillsIMS.Repositories
                 string query = $@"
                             UPDATE InboundOrder
                             SET CompanyId = {inboundOrder.CompanyId}, PurchaseDate = '{inboundOrder.PurchaseDate}'
-                            WHERE InventoryItemId = {inboundOrder.InboundOrderId}
+                            WHERE InboundOrderId = {inboundOrder.InboundOrderId}
                             ";
 
                 var res = await _databaseUtility.QueryDatabase(query);
