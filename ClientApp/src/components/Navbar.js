@@ -27,7 +27,7 @@ const Navbar = () => {
       <Link to='product'>Product</Link>
       <Link to='/inventoryItems'>Inventory Items</Link>
       <Link to='/binlocations'>Bin Locations</Link>
-      <Link to='/inboundOrders'>Inbound Orders</Link>
+      <Link to='/inboundOrder'>Inbound Order</Link>
       <Link to='/outboundOrders'>Outbound Orders</Link>
     </div>
   );

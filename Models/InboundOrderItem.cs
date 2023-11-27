@@ -4,6 +4,7 @@ namespace WillsIMS.Models
 {
     public class InboundOrderItem
     {
+        public string InboundOrderItemTableName = "InboundOrderItem";
         [Key]
         public int InboundOrderItemId { get; set; }
         public int InboundOrderId { get; set; }

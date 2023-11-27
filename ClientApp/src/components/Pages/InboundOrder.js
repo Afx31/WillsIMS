@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './Data.css';
 
-const InboundOrders = () => {
+const InboundOrder = () => {
   const [loading, setLoading] = useState(true);
   const [inboundOrders, setInboundOrders] = useState([]);
   const [inboundOrderItems, setInboundOrderItems] = useState([]);
@@ -90,4 +90,4 @@ const InboundOrders = () => {
   }
 }
 
-export default InboundOrders;
+export default InboundOrder;

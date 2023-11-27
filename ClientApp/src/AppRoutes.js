@@ -3,7 +3,7 @@ import Company from "./components/Pages/Company";
 import Product from "./components/Pages/Product";
 import InventoryItems from "./components/Pages/InventoryItems";
 import BinLocations from "./components/Pages/BinLocations";
-import InboundOrders from "./components/Pages/InboundOrders";
+import InboundOrder from "./components/Pages/InboundOrder";
 import OutboundOrders from "./components/Pages/OutboundOrders";
 
 const AppRoutes = [
@@ -28,8 +28,8 @@ const AppRoutes = [
     element: <BinLocations />
   },
   {
-    path: '/inboundOrders',
-    element: <InboundOrders />
+    path: '/inboundOrder',
+    element: <InboundOrder />
   },
   {
     path: '/outboundOrders',
