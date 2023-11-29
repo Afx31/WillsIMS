@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './Data.css';
 
-const OutboundOrders = () => {
+const OutboundOrder = () => {
   const [loading, setLoading] = useState(true);
   const [outboundOrders, setOutboundOrders] = useState([]);
   const [outboundOrderItems, setOutboundOrderItems] = useState([]);
@@ -90,4 +90,4 @@ const OutboundOrders = () => {
   }
 }
 
-export default OutboundOrders;
+export default OutboundOrder;
