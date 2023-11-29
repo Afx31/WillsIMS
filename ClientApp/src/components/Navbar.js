@@ -28,7 +28,7 @@ const Navbar = () => {
       <Link to='/inventoryItems'>Inventory Items</Link>
       <Link to='/binlocations'>Bin Locations</Link>
       <Link to='/inboundOrder'>Inbound Order</Link>
-      <Link to='/outboundOrders'>Outbound Orders</Link>
+      <Link to='/outboundOrder'>Outbound Order</Link>
     </div>
   );
 }

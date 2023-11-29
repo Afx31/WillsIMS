@@ -4,7 +4,7 @@ import Product from "./components/Pages/Product";
 import InventoryItems from "./components/Pages/InventoryItems";
 import BinLocations from "./components/Pages/BinLocations";
 import InboundOrder from "./components/Pages/InboundOrder";
-import OutboundOrders from "./components/Pages/OutboundOrders";
+import OutboundOrder from "./components/Pages/OutboundOrder";
 
 const AppRoutes = [
   {
@@ -32,8 +32,8 @@ const AppRoutes = [
     element: <InboundOrder />
   },
   {
-    path: '/outboundOrders',
-    element: <OutboundOrders />
+    path: '/outboundOrder',
+    element: <OutboundOrder />
   }
 ];
 
