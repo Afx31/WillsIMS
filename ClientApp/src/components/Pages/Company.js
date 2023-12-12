@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import './Data.css';
+import './Company.css';
+import { Input, Button } from 'rixun-ui';
 
 const Company = () => {
   const [loading, setLoading] = useState(true);
   const [inputGetId, setInputGetId] = useState(0);
-  const [inputDeleteId, setInputDeleteId] = useState(0);
   const [companies, setCompanies] = useState([]);
   const [company, setCompany] = useState({
     companyId: 0,
@@ -22,26 +22,16 @@ const Company = () => {
     phone: '',
     address: '',
   });
-  const [updateCompany, setUpdateCompany] = useState({
-    companyId: 0,
-    companyType: 0,
-    name: '',
-    email: '',
-    phone: '',
-    address: '',
-  });
 
   useEffect(() => {
     fetchCompaniesData();
   }, []);
 
+  //#region Handling input and change code
   const handleGetInputChange = (e) => {
     setInputGetId(e.target.value);
   }
-  const handleDeleteInputChange = (e) => {
-    setInputDeleteId(e.target.value);
-  }
-
+  
   const onGetCompanyBtnClick = () => {
     try {
       fetchCompanyData(inputGetId);
@@ -67,8 +57,8 @@ const Company = () => {
 
   const handleUpdateInputChange = (e) => {
     e.preventDefault();
-    setUpdateCompany({
-      ...updateCompany,
+    setCompany({
+      ...company,
       [e.target.name]: e.target.value
     });
   }
@@ -82,191 +72,182 @@ const Company = () => {
 
   const onDeleteCompanyBtnClick = () => {
     try {
-      fetchDeleteCompany(inputDeleteId);
+      fetchDeleteCompany(company.companyId);
     } catch (error) {
       console.error('An error occurred: ', error);
     }
   }
+  //#endregion
 
   const renderCompaniesTable = (companies) => {
     return (
-      <table>
-        <thead>
-          <tr>
-            <th>Company Id</th>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Phone</th>
-            <th>Address</th>
-          </tr>
-        </thead>
-        <tbody>
-          {companies.map(company =>
-            <tr key={company.companyId}>
-              <td>{company.companyId}</td>
-              <td>{company.name}</td>
-              <td>{company.email}</td>
-              <td>{company.phone}</td>
-              <td>{company.address}</td>
-            </tr>
-          )}
-        </tbody>
-      </table>
-    );
-  }
-
-  const renderCompanyTable = (company) => {
-    return (
-      <table>
-        <thead>
-          <tr>
-            <th>Company Id</th>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Phone</th>
-            <th>Address</th>
-          </tr>
-        </thead>
-        <tbody>
-          {
+      <div className='company-table'>
+        <table>
+          <thead>
             <tr>
-              <td>{company.companyId}</td>
-              <td>{company.name}</td>
-              <td>{company.email}</td>
-              <td>{company.phone}</td>
-              <td>{company.address}</td>
+              <th>Company Id</th>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Phone</th>
+              <th>Address</th>
             </tr>
-          }
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {companies.map(company =>
+              <tr key={company.companyId}>
+                <td>{company.companyId}</td>
+                <td>{company.name}</td>
+                <td>{company.email}</td>
+                <td>{company.phone}</td>
+                <td>{company.address}</td>
+              </tr>
+            )}
+          </tbody>
+        </table>
+      </div>
     );
   }
 
-  
   let contentCompanies = loading
     ? <p><em>Loading...</em></p>
     : renderCompaniesTable(companies);
-  let contentCompany = loading
-    ? <p><em>Loading...</em></p>
-    : renderCompanyTable(company);
     
   return (
-    <div className='dataContainer'>
+    <div className='company-container'>
       <h1 id='tableLabel'>Company</h1>
-
-      <div className='company-get-all'>
-        <h2>Get All</h2>
+      <div className='company-top'>
+        <div className='company-top-left'>
+          <div className='company-create'>
+            <h2>New Company</h2>
+            <hr />
+            <div className='company-create-fields'>
+            <label>Name: </label>
+              <Input
+                // className='rx-input'
+                name='name'
+                type='text'
+                placeholder='Name'
+                value={createCompany.name}
+                onChange={(e) => handleCreateInputChange(e)}
+              />
+              <label> Type: </label>
+              <Input
+                name='companyType'
+                type='number'
+                placeholder='Type'
+                value={createCompany.companyType}
+                onChange={(e) => handleCreateInputChange(e)}
+              />
+              <label>Email: </label>
+              <Input
+                name='email'
+                type='text'
+                placeholder='Email'
+                value={createCompany.email}
+                onChange={(e) => handleCreateInputChange(e)}
+              />
+              <label> Phone: </label>
+              <Input
+                name='phone'
+                type='text'
+                placeholder='Phone'
+                value={createCompany.phone}
+                onChange={(e) => handleCreateInputChange(e)}
+              />
+              <label>Address: </label>
+              <Input
+                name='address'
+                type='text'
+                placeholder='Address'
+                value={createCompany.address}
+                onChange={(e) => handleCreateInputChange(e)}
+              />
+            </div>
+            <button
+              type='submit'
+              onClick={onCreateBtnClick}>
+                Create company
+            </button>
+          </div>
+        </div>
+        <div className='company-top-right'>
+          <h2>Update | Delete</h2>          
+          <label>Search for Company Id: </label>
+          <input
+            className='company-top-right-search-input'
+            type='number'
+            value={inputGetId}
+            onChange={handleGetInputChange}
+          />
+          <input
+            className='company-top-right-search-input'
+            type='number'
+            value={inputGetId}
+            onChange={handleGetInputChange}
+          />
+          <Input
+            className='company-top-right-search-input'
+            type='number'
+            value={inputGetId}
+            onChange={handleGetInputChange}
+          />
+          <Input
+            className='company-top-right-search-input'
+            type='number'
+            value={inputGetId}
+            onChange={handleGetInputChange}
+          />
+          <button onClick={onGetCompanyBtnClick}>Go</button>
+          <hr/>
+          <div className='company-updatedelete-fields'>
+            <label>Name: </label>
+            <Input
+              name='name'
+              type='text'
+              placeholder='Name'
+              value={company.name}
+              onChange={(e) => handleUpdateInputChange(e)}
+            />
+            <label> Type: </label>
+            <Input
+              name='companyType'
+              type='number'
+              placeholder='Type'
+              value={company.companyType}
+              onChange={(e) => handleUpdateInputChange(e)}
+            />
+            <label>Email: </label>
+            <Input
+              name='email'
+              type='text'
+              placeholder='Email'
+              value={company.email}
+              onChange={(e) => handleUpdateInputChange(e)}
+            />
+            <label> Phone: </label>
+            <Input
+              name='phone'
+              type='text'
+              placeholder='Phone'
+              value={company.phone}
+              onChange={(e) => handleUpdateInputChange(e)}
+            />
+            <label>Address: </label>
+            <Input
+              name='address'
+              type='text'
+              placeholder='Address'
+              value={company.address}
+              onChange={(e) => handleUpdateInputChange(e)}
+            />
+          </div>
+          <button type='submit' onClick={onUpdateBtnClick}>Update company</button>
+          <button onClick={onDeleteCompanyBtnClick}>Delete Company</button>          
+        </div>
+      </div>
+      <div className='company-bottom'>
+        <h2>All Companies</h2>
         {contentCompanies}
-      </div>
-
-      <div className='company-get'>
-        <h2>Get Individual</h2>
-        <input
-          type='number'
-          placeholder='Enter Id'
-          value={inputGetId}
-          onChange={handleGetInputChange}
-        />        
-        <button onClick={onGetCompanyBtnClick}>Get company</button>
-        {contentCompany}
-      </div>
-
-      <div className='company-create'>
-        <h2>Create</h2>
-        <input
-          name='companyType'
-          type='number'
-          placeholder='Enter Type'
-          value={createCompany.companyType}
-          onChange={(e) => handleCreateInputChange(e)}
-        />
-        <input
-          name='name'
-          type='text'
-          placeholder='Enter Name'
-          value={createCompany.name}
-          onChange={(e) => handleCreateInputChange(e)}
-        />
-        <input
-          name='email'
-          type='text'
-          placeholder='Enter Email'
-          value={createCompany.email}
-          onChange={(e) => handleCreateInputChange(e)}
-        />
-        <input
-          name='phone'
-          type='text'
-          placeholder='Enter Phone'
-          value={createCompany.phone}
-          onChange={(e) => handleCreateInputChange(e)}
-        />
-        <input
-          name='address'
-          type='text'
-          placeholder='Enter Address'
-          value={createCompany.address}
-          onChange={(e) => handleCreateInputChange(e)}
-        />
-        <button type='submit' onClick={onCreateBtnClick}>Get company</button>
-      </div>
-
-      <div className='company-update'>
-        <h2>Update</h2>
-        <input
-          name='companyId'
-          type='number'
-          placeholder='Enter Id'
-          value={updateCompany.companyId}
-          onChange={(e) => handleUpdateInputChange(e)}
-        />
-        <input
-          name='companyType'
-          type='number'
-          placeholder='Enter Type'
-          value={updateCompany.companyType}
-          onChange={(e) => handleUpdateInputChange(e)}
-        />
-        <input
-          name='name'
-          type='text'
-          placeholder='Enter Name'
-          value={updateCompany.name}
-          onChange={(e) => handleUpdateInputChange(e)}
-        />
-        <input
-          name='email'
-          type='text'
-          placeholder='Enter Email'
-          value={updateCompany.email}
-          onChange={(e) => handleUpdateInputChange(e)}
-        />
-        <input
-          name='phone'
-          type='text'
-          placeholder='Enter Phone'
-          value={updateCompany.phone}
-          onChange={(e) => handleUpdateInputChange(e)}
-        />
-        <input
-          name='address'
-          type='text'
-          placeholder='Enter Address'
-          value={updateCompany.address}
-          onChange={(e) => handleUpdateInputChange(e)}
-        />
-        <button type='submit' onClick={onUpdateBtnClick}>Update company</button>
-      </div>
-
-      <div className='company-delete'>
-        <h2>Delete</h2>
-        <input
-          type='number'
-          placeholder='Enter Id'
-          value={inputDeleteId}
-          onChange={handleDeleteInputChange}
-        />        
-        <button onClick={onDeleteCompanyBtnClick}>Delete company</button>
       </div>
     </div>
   );
@@ -288,22 +269,18 @@ const Company = () => {
   async function fetchCompanyData(companyId) {
     try {
       const res = await fetch(`/api/company/${companyId}`);
-
+      
       if (!res.ok) { throw new Error(`HTTP error! Status: ${res.status}`); }
 
-      const data = await res.json();
-      setCompany((prevState) => ({
-        ...prevState,
-        company: {
-          companyId: data.companyId,
-          companyType: data.companyType,
-          name: data.name,
-          email: data.email,
-          phone: data.phone,
-          address: data.address,
-        },
-        loading: false,
-      }));
+      const data = await res.json(); console.log(data)
+      setCompany({
+        companyId: data.companyId,
+        companyType: data.companyType,
+        name: data.name,
+        email: data.email,
+        phone: data.phone,
+        address: data.address,
+      });
     } catch (err) {
       console.error('Fetch error:', err);
     } 
@@ -332,7 +309,7 @@ const Company = () => {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(updateCompany),
+        body: JSON.stringify(company),
       });
 
       if (!res.ok) { throw new Error(`HTTP error! Status: ${res.status}`); }

@@ -1,0 +1,75 @@
+.company-container {
+  padding: 10px;
+}
+
+.company-container h2 {
+  margin-top: 0px;
+}
+
+/* ------------------------ Top  ------------------------ */
+.company-top {
+  /* border: 1px solid black; */
+  display: flex;
+  width: 100%;
+  margin-bottom: 10px;
+}
+/* ------------------------ Top left ------------------------ */
+.company-top-left {
+  flex: 1;
+  border: 1px solid black;
+  padding: 10px;
+}
+.company-create {
+}
+
+.company-create-fields {
+  border: 1px solid yellow;
+  margin-bottom: 1rem;
+}
+
+/* ------------------------ Top right ------------------------ */
+.company-top-right {
+  flex: 1;
+  border: 1px solid black;
+  padding: 10px;
+}
+
+.company-top-right-search-input {
+  display: inline-block;
+}
+
+.company-updatedelete-fields {
+  border: 1px solid yellow;
+  margin-bottom: 1rem;
+}
+
+/* ------------------------ Rixun components ------------------------ */
+.rx-input {
+  padding: 5px;
+  /* width: 30rem; */
+}
+
+
+/* ------------------------ Bottom ------------------------ */
+.company-bottom {
+  border: 1px solid black;
+}
+
+.company-table {
+  border-top: 1px solid black;
+  padding: 10px;
+}
+
+.company-table table {
+  border: 1px solid black;
+}
+
+.company-table th {
+  border: 1px solid white;
+  padding: 10px;
+}
+
+.company-table td {
+  border-bottom: 1px solid lightgray;
+  padding: 5px 30px 5px 30px;
+}
