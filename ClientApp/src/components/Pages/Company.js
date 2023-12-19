@@ -117,45 +117,57 @@ const Company = () => {
       <h1 id='tableLabel'>Company</h1>
       <div className='company-top'>
         <div className='company-top-left'>
-          <div className='company-create'>
-            <h2>New Company</h2>
-            <hr />
-            <div className='company-create-fields'>
-            <label>Name: </label>
+          <h2>New Company</h2>
+          <hr />
+          <div className='company-top-left-top'>
+            <div className='company-top-left-top-input-container'>
+              <label>Name: </label>
               <Input
-                // className='rx-input'
+                className='rixun-input-company-top-create'
                 name='name'
                 type='text'
                 placeholder='Name'
                 value={createCompany.name}
                 onChange={(e) => handleCreateInputChange(e)}
               />
+            </div>
+            <div className='company-top-left-top-input-container'>
               <label> Type: </label>
               <Input
+                className='rixun-input-company-top-create'
                 name='companyType'
                 type='number'
                 placeholder='Type'
                 value={createCompany.companyType}
                 onChange={(e) => handleCreateInputChange(e)}
               />
+            </div>
+            <div className='company-top-left-top-input-container'>
               <label>Email: </label>
               <Input
+                className='rixun-input-company-top-create'
                 name='email'
                 type='text'
                 placeholder='Email'
                 value={createCompany.email}
                 onChange={(e) => handleCreateInputChange(e)}
               />
+            </div>
+            <div className='company-top-left-top-input-container'>
               <label> Phone: </label>
               <Input
+                className='rixun-input-company-top-create'
                 name='phone'
                 type='text'
                 placeholder='Phone'
                 value={createCompany.phone}
                 onChange={(e) => handleCreateInputChange(e)}
               />
+            </div>
+            <div className='company-top-left-top-input-container'>
               <label>Address: </label>
               <Input
+                className='rixun-input-company-top-create'
                 name='address'
                 type='text'
                 placeholder='Address'
@@ -163,86 +175,100 @@ const Company = () => {
                 onChange={(e) => handleCreateInputChange(e)}
               />
             </div>
-            <button
-              type='submit'
-              onClick={onCreateBtnClick}>
-                Create company
-            </button>
           </div>
+          <Button
+            className='rixun-button-company-bottom-create'
+            type='default'
+            onClick={onCreateBtnClick}
+            name='Create company'
+          />
         </div>
         <div className='company-top-right'>
-          <h2>Update | Delete</h2>          
-          <label>Search for Company Id: </label>
-          <input
-            className='company-top-right-search-input'
-            type='number'
-            value={inputGetId}
-            onChange={handleGetInputChange}
-          />
-          <input
-            className='company-top-right-search-input'
-            type='number'
-            value={inputGetId}
-            onChange={handleGetInputChange}
-          />
-          <Input
-            className='company-top-right-search-input'
-            type='number'
-            value={inputGetId}
-            onChange={handleGetInputChange}
-          />
-          <Input
-            className='company-top-right-search-input'
-            type='number'
-            value={inputGetId}
-            onChange={handleGetInputChange}
-          />
-          <button onClick={onGetCompanyBtnClick}>Go</button>
-          <hr/>
-          <div className='company-updatedelete-fields'>
-            <label>Name: </label>
+          <h2>Update | Delete</h2>
+          <div className='company-top-right-top'>
+            <label>Search for Company Id: </label>
             <Input
-              name='name'
-              type='text'
-              placeholder='Name'
-              value={company.name}
-              onChange={(e) => handleUpdateInputChange(e)}
-            />
-            <label> Type: </label>
-            <Input
-              name='companyType'
+              className='rixun-input-company-top-right-search'
               type='number'
-              placeholder='Type'
-              value={company.companyType}
-              onChange={(e) => handleUpdateInputChange(e)}
+              value={inputGetId}
+              onChange={handleGetInputChange}
             />
-            <label>Email: </label>
-            <Input
-              name='email'
-              type='text'
-              placeholder='Email'
-              value={company.email}
-              onChange={(e) => handleUpdateInputChange(e)}
-            />
-            <label> Phone: </label>
-            <Input
-              name='phone'
-              type='text'
-              placeholder='Phone'
-              value={company.phone}
-              onChange={(e) => handleUpdateInputChange(e)}
-            />
-            <label>Address: </label>
-            <Input
-              name='address'
-              type='text'
-              placeholder='Address'
-              value={company.address}
-              onChange={(e) => handleUpdateInputChange(e)}
+            <Button
+              className='rixun-button-company-top-right-search'
+              type='default'
+              onClick={onGetCompanyBtnClick}
+              name='Search'
             />
           </div>
-          <button type='submit' onClick={onUpdateBtnClick}>Update company</button>
-          <button onClick={onDeleteCompanyBtnClick}>Delete Company</button>          
+          <hr/>
+          <div className='company-top-right-bottom '>
+            <div className='company-top-right-bottom-input-container'>
+              <label>Name: </label>
+              <Input
+                className='rixun-input-company-bottom-update'
+                name='name'
+                type='text'
+                // placeholder='Name'
+                value={company.name}
+                onChange={(e) => handleUpdateInputChange(e)}
+              />
+            </div>
+            <div className='company-top-right-bottom-input-container'>
+              <label> Type: </label>
+              <Input
+                className='rixun-input-company-bottom-update'
+                name='companyType'
+                type='number'
+                // placeholder='Type'
+                value={company.companyType}
+                onChange={(e) => handleUpdateInputChange(e)}
+              />
+            </div>
+            <div className='company-top-right-bottom-input-container'>
+              <label>Email: </label>
+              <Input
+                className='rixun-input-company-bottom-update'
+                name='email'
+                type='text'
+                // placeholder='Email'
+                value={company.email}
+                onChange={(e) => handleUpdateInputChange(e)}
+              />
+            </div>
+            <div className='company-top-right-bottom-input-container'>
+              <label> Phone: </label>
+              <Input
+                className='rixun-input-company-bottom-update'
+                name='phone'
+                type='text'
+                // placeholder='Phone'
+                value={company.phone}
+                onChange={(e) => handleUpdateInputChange(e)}
+              />
+            </div>
+            <div className='company-top-right-bottom-input-container'>
+              <label>Address: </label>
+              <Input
+                className='rixun-input-company-bottom-update'
+                name='address'
+                type='text'
+                // placeholder='Address'
+                value={company.address}
+                onChange={(e) => handleUpdateInputChange(e)}
+              />
+            </div>
+          </div>
+          <Button
+            className='rixun-button-company-bottom-update'
+            // type='submit'
+            name='Update Company'
+            onClick={onUpdateBtnClick}
+          />
+          <Button
+            className='rixun-button-company-bottom-update'
+            name='Delete Company'
+            onClick={onDeleteCompanyBtnClick}
+          />
         </div>
       </div>
       <div className='company-bottom'>
