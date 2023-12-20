@@ -28,18 +28,6 @@ const Company = () => {
   }, []);
 
   //#region Handling input and change code
-  const handleGetInputChange = (e) => {
-    setInputGetId(e.target.value);
-  }
-  
-  const onGetCompanyBtnClick = () => {
-    try {
-      fetchCompanyData(inputGetId);
-    } catch (error) {
-      console.error('An error occurred: ', error);
-    }
-  }
-
   const handleCreateInputChange = (e) => {
     e.preventDefault();
     setCreateCompany({
@@ -55,6 +43,17 @@ const Company = () => {
     }
   }
 
+  const handleGetInputChange = (e) => {
+    setInputGetId(e.target.value);
+  }  
+  const onGetCompanyBtnClick = () => {
+    try {
+      fetchCompanyData(inputGetId);
+    } catch (error) {
+      console.error('An error occurred: ', error);
+    }
+  }
+
   const handleUpdateInputChange = (e) => {
     e.preventDefault();
     setCompany({
@@ -62,6 +61,7 @@ const Company = () => {
       [e.target.name]: e.target.value
     });
   }
+
   const onUpdateBtnClick = () => {
     try {
       fetchUpdateCompany();
@@ -126,18 +126,18 @@ const Company = () => {
                 className='rixun-input-company-top-create'
                 name='name'
                 type='text'
-                placeholder='Name'
+                // placeholder='Name'
                 value={createCompany.name}
                 onChange={(e) => handleCreateInputChange(e)}
               />
             </div>
             <div className='company-top-left-top-input-container'>
-              <label> Type: </label>
+              <label>Type: </label>
               <Input
                 className='rixun-input-company-top-create'
                 name='companyType'
                 type='number'
-                placeholder='Type'
+                // placeholder='Type'
                 value={createCompany.companyType}
                 onChange={(e) => handleCreateInputChange(e)}
               />
@@ -148,18 +148,18 @@ const Company = () => {
                 className='rixun-input-company-top-create'
                 name='email'
                 type='text'
-                placeholder='Email'
+                // placeholder='Email'
                 value={createCompany.email}
                 onChange={(e) => handleCreateInputChange(e)}
               />
             </div>
             <div className='company-top-left-top-input-container'>
-              <label> Phone: </label>
+              <label>Phone: </label>
               <Input
                 className='rixun-input-company-top-create'
                 name='phone'
                 type='text'
-                placeholder='Phone'
+                // placeholder='Phone'
                 value={createCompany.phone}
                 onChange={(e) => handleCreateInputChange(e)}
               />
@@ -170,7 +170,7 @@ const Company = () => {
                 className='rixun-input-company-top-create'
                 name='address'
                 type='text'
-                placeholder='Address'
+                // placeholder='Address'
                 value={createCompany.address}
                 onChange={(e) => handleCreateInputChange(e)}
               />
@@ -214,7 +214,7 @@ const Company = () => {
               />
             </div>
             <div className='company-top-right-bottom-input-container'>
-              <label> Type: </label>
+              <label>Type: </label>
               <Input
                 className='rixun-input-company-bottom-update'
                 name='companyType'
@@ -236,7 +236,7 @@ const Company = () => {
               />
             </div>
             <div className='company-top-right-bottom-input-container'>
-              <label> Phone: </label>
+              <label>Phone: </label>
               <Input
                 className='rixun-input-company-bottom-update'
                 name='phone'

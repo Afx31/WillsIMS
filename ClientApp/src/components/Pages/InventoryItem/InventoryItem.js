@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import './Data.css';
+import './InventoryItem.css';
 
-const InventoryItems = () => {
+const InventoryItem = () => {
   const [loading, setLoading] = useState(true);
   const [inventoryItems, setInventoryItems] = useState([]);
   const [inputGetId, setInputGetId] = useState(0);
@@ -339,4 +339,4 @@ const InventoryItems = () => {
   }
 }
 
-export default InventoryItems;
+export default InventoryItem;

@@ -1,14 +1,12 @@
 .company-container {
   padding: 10px;
 }
-
 .company-container h2 {
   margin-top: 0px;
 }
 
 /* ------------------------ Top  ------------------------ */
 .company-top {
-  /* border: 1px solid black; */
   display: flex;
   width: 100%;
   margin-bottom: 10px;
@@ -87,11 +85,12 @@
 /* ------------------------ Bottom ------------------------ */
 .company-bottom {
   border: 1px solid black;
+  padding: 10px;
 }
 
 .company-table {
   border-top: 1px solid black;
-  padding: 10px;
+  padding-top: 10px;
 }
 
 .company-table table {
