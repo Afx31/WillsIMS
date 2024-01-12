@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import './Data.css';
+import './InboundOrder.css';
 
 const InboundOrder = () => {
   const [loading, setLoading] = useState(true);

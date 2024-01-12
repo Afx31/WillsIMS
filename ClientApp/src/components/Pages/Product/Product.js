@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import './Data.css';
+import './Product.css';
 
 const Product = () => {
   const [loading, setLoading] = useState(true);

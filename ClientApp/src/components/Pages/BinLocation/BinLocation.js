@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import './Data.css';
+import './BinLocation.css';
 
-const BinLocations = () => {
+const BinLocation = () => {
   const [loading, setLoading] = useState(true);
   const [binLocations, setBinLocations] = useState([]);
   const [inputGetId, setInputGetId] = useState(0);
@@ -295,4 +295,4 @@ const BinLocations = () => {
   }
 }
 
-export default BinLocations;
+export default BinLocation;

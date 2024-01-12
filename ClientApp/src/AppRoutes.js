@@ -1,10 +1,10 @@
-import Home from "./components/Pages/Home";
-import Company from "./components/Pages/Company";
-import Product from "./components/Pages/Product";
-import InventoryItems from "./components/Pages/InventoryItems";
-import BinLocations from "./components/Pages/BinLocations";
-import InboundOrder from "./components/Pages/InboundOrder";
-import OutboundOrder from "./components/Pages/OutboundOrder";
+import Home from "./components/Pages/Home/Home";
+import Company from "./components/Pages/Company/Company";
+import Product from "./components/Pages/Product/Product";
+import InventoryItem from "./components/Pages/InventoryItem/InventoryItem";
+import BinLocation from "./components/Pages/BinLocation/BinLocation";
+import InboundOrder from "./components/Pages/InboundOrder/InboundOrder";
+import OutboundOrder from "./components/Pages/OutboundOrder/OutboundOrder";
 
 const AppRoutes = [
   {
@@ -20,12 +20,12 @@ const AppRoutes = [
     element: <Product />
   },
   {
-    path: '/inventoryItems',
-    element: <InventoryItems />
+    path: '/inventoryItem',
+    element: <InventoryItem />
   },
   {
-    path: '/binLocations',
-    element: <BinLocations />
+    path: '/binLocation',
+    element: <BinLocation />
   },
   {
     path: '/inboundOrder',

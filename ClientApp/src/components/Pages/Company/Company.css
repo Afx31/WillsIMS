@@ -1,0 +1,96 @@
+.company-container {
+  padding: 10px;
+}
+.company-container h2 {
+  margin-top: 0px;
+}
+
+/* ------------------------ Top  ------------------------ */
+.company-top {
+  display: flex;
+  width: 100%;
+  margin-bottom: 10px;
+}
+/* ------------------------ Top left ------------------------ */
+.company-top-left {
+  flex: 1;
+  border: 1px solid black;
+  padding: 10px;
+}
+.company-top-left-top {
+  margin-bottom: .5rem;
+}
+
+.company-top-left-top-input-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+/* ------------------------ Top right ------------------------ */
+.company-top-right {
+  flex: 1;
+  border: 1px solid black;
+  padding: 10px;
+}
+.company-top-right-top {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.company-top-right-bottom  {
+  margin-bottom: .5rem;
+}
+.company-top-right-bottom-input-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+/* ------------------------ Rixun components ------------------------ */
+.rx-input-group {
+  width: 100%;
+}
+.rixun-input-company-top-right-search {
+  /* display: inline-block; */
+  padding: 4px;
+  width: 30rem;
+  margin: 0 10px;
+}
+.rixun-input-company {
+  padding: 4px;
+  width: 100%;
+  box-sizing: border-box;
+}
+.rixun-button-company {
+  padding: 5px;
+  margin: 0 10px;
+}
+.rixun-button-company-top-right-search {
+  padding: 5px;
+}
+
+/* ------------------------ Bottom ------------------------ */
+.company-bottom {
+  border: 1px solid black;
+  padding: 10px;
+}
+
+.company-table {
+  border-top: 1px solid black;
+  padding-top: 10px;
+}
+
+.company-table table {
+  border: 1px solid black;
+}
+
+.company-table th {
+  border: 1px solid white;
+  padding: 10px;
+}
+
+.company-table td {
+  border-bottom: 1px solid lightgray;
+  padding: 5px 30px 5px 30px;
+}
