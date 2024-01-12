@@ -18,22 +18,13 @@
   padding: 10px;
 }
 .company-top-left-top {
-  margin-bottom: 1rem;
+  margin-bottom: .5rem;
 }
 
 .company-top-left-top-input-container {
   display: flex;
   flex-direction: row;
   align-items: center;
-  width: 30rem;
-}
-.rixun-input-company-top-create {
-  padding: 4px;
-  width: 30rem;
-}
-.rixun-button-company-bottom-create {
-  padding: 5px;
-  margin: 0 10px;
 }
 
 /* ------------------------ Top right ------------------------ */
@@ -42,11 +33,23 @@
   border: 1px solid black;
   padding: 10px;
 }
-
 .company-top-right-top {
   display: flex;
   flex-direction: row;
   align-items: center;
+}
+.company-top-right-bottom  {
+  margin-bottom: .5rem;
+}
+.company-top-right-bottom-input-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+/* ------------------------ Rixun components ------------------------ */
+.rx-input-group {
+  width: 100%;
 }
 .rixun-input-company-top-right-search {
   /* display: inline-block; */
@@ -54,32 +57,17 @@
   width: 30rem;
   margin: 0 10px;
 }
-.rixun-button-company-top-right-search {
-  padding: 5px;
-}
-
-.company-top-right-bottom  {
-  margin-bottom: 1rem;
-}
-.company-top-right-bottom-input-container {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  width: 30rem;
-}
-.rixun-input-company-bottom-update {
+.rixun-input-company {
   padding: 4px;
-  width: 30rem;
+  width: 100%;
+  box-sizing: border-box;
 }
-.rixun-button-company-bottom-update {
+.rixun-button-company {
   padding: 5px;
   margin: 0 10px;
 }
-
-/* ------------------------ Rixun components ------------------------ */
-.rx-input {
-  /* padding: 5px; */
-  /* width: 30rem; */
+.rixun-button-company-top-right-search {
+  padding: 5px;
 }
 
 /* ------------------------ Bottom ------------------------ */

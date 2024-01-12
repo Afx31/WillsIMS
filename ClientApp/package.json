@@ -18,7 +18,7 @@
     "react-router-dom": "^6.11.0",
     "react-scripts": "^5.0.1",
     "rimraf": "^5.0.5",
-    "rixun-ui": "^1.0.4"
+    "rixun-ui": "^1.0.7"
   },
   "devDependencies": {
     "cross-env": "^7.0.3",

@@ -123,7 +123,7 @@ const Company = () => {
             <div className='company-top-left-top-input-container'>
               <label>Name: </label>
               <Input
-                className='rixun-input-company-top-create'
+                className='rixun-input-company'
                 name='name'
                 type='text'
                 // placeholder='Name'
@@ -134,7 +134,7 @@ const Company = () => {
             <div className='company-top-left-top-input-container'>
               <label>Type: </label>
               <Input
-                className='rixun-input-company-top-create'
+                className='rixun-input-company'
                 name='companyType'
                 type='number'
                 // placeholder='Type'
@@ -145,7 +145,7 @@ const Company = () => {
             <div className='company-top-left-top-input-container'>
               <label>Email: </label>
               <Input
-                className='rixun-input-company-top-create'
+                className='rixun-input-company'
                 name='email'
                 type='text'
                 // placeholder='Email'
@@ -156,7 +156,7 @@ const Company = () => {
             <div className='company-top-left-top-input-container'>
               <label>Phone: </label>
               <Input
-                className='rixun-input-company-top-create'
+                className='rixun-input-company'
                 name='phone'
                 type='text'
                 // placeholder='Phone'
@@ -167,7 +167,7 @@ const Company = () => {
             <div className='company-top-left-top-input-container'>
               <label>Address: </label>
               <Input
-                className='rixun-input-company-top-create'
+                className='rixun-input-company'
                 name='address'
                 type='text'
                 // placeholder='Address'
@@ -177,7 +177,7 @@ const Company = () => {
             </div>
           </div>
           <Button
-            className='rixun-button-company-bottom-create'
+            className='rixun-button-company'
             type='default'
             onClick={onCreateBtnClick}
             name='Create company'
@@ -188,24 +188,24 @@ const Company = () => {
           <div className='company-top-right-top'>
             <label>Search for Company Id: </label>
             <Input
-              className='rixun-input-company-top-right-search'
+              className='rixun-input-company'
               type='number'
               value={inputGetId}
               onChange={handleGetInputChange}
             />
             <Button
-              className='rixun-button-company-top-right-search'
+              className='rixun-button-company'
               type='default'
               onClick={onGetCompanyBtnClick}
               name='Search'
             />
           </div>
           <hr/>
-          <div className='company-top-right-bottom '>
+          <div className='company-top-right-bottom'>
             <div className='company-top-right-bottom-input-container'>
               <label>Name: </label>
               <Input
-                className='rixun-input-company-bottom-update'
+                className='rixun-input-company'
                 name='name'
                 type='text'
                 // placeholder='Name'
@@ -216,7 +216,7 @@ const Company = () => {
             <div className='company-top-right-bottom-input-container'>
               <label>Type: </label>
               <Input
-                className='rixun-input-company-bottom-update'
+                className='rixun-input-company'
                 name='companyType'
                 type='number'
                 // placeholder='Type'
@@ -227,7 +227,7 @@ const Company = () => {
             <div className='company-top-right-bottom-input-container'>
               <label>Email: </label>
               <Input
-                className='rixun-input-company-bottom-update'
+                className='rixun-input-company'
                 name='email'
                 type='text'
                 // placeholder='Email'
@@ -238,7 +238,7 @@ const Company = () => {
             <div className='company-top-right-bottom-input-container'>
               <label>Phone: </label>
               <Input
-                className='rixun-input-company-bottom-update'
+                className='rixun-input-company'
                 name='phone'
                 type='text'
                 // placeholder='Phone'
@@ -249,7 +249,7 @@ const Company = () => {
             <div className='company-top-right-bottom-input-container'>
               <label>Address: </label>
               <Input
-                className='rixun-input-company-bottom-update'
+                className='rixun-input-company'
                 name='address'
                 type='text'
                 // placeholder='Address'
@@ -259,13 +259,13 @@ const Company = () => {
             </div>
           </div>
           <Button
-            className='rixun-button-company-bottom-update'
+            className='rixun-button-company'
             // type='submit'
             name='Update Company'
             onClick={onUpdateBtnClick}
           />
           <Button
-            className='rixun-button-company-bottom-update'
+            className='rixun-button-company'
             name='Delete Company'
             onClick={onDeleteCompanyBtnClick}
           />
